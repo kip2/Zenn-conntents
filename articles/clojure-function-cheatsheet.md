@@ -240,5 +240,37 @@ https://clojuredocs.org/clojure.core/rest
 ;; ()
 ```
 
+## list*
+
+`(list* args)`
+`(list* a args)`
+`(list* a b args)`
+`(list* a b c args)`
+`(list* a b c d & more)`
+
+シーケンス全体をリストとしてまとめるために使用する。
+特に遅延シーケンスをリストとして評価する場合に使用する。
+
+`list`がシーケンスを一つとしてまとめた扱う場合に、`list*`がシーケンスの各要素を展開してリスト化する場合に使用する。
+
+https://clojuredocs.org/clojure.core/list*
+
+```clojure
+(list data)
+;; ((1 2 3))
+(list* data)
+;; (1 2 3)
+
+(list 0 data)
+;; (0 (1 2 3))
+(list* 0 data)
+;; (0 1 2 3)
+
+(list (rest data))
+;; ((2 3))
+(list* (rest data))
+;; (2 3)
+```
+
 
 and more...
