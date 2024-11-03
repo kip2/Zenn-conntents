@@ -272,5 +272,30 @@ https://clojuredocs.org/clojure.core/list*
 ;; (2 3)
 ```
 
+## into
+
+`(into)`
+`(into to)`
+`(into to from)`
+`(into to xform from)`
+
+コレクションを別のコレクションに変換してから結合する。
+第一引数である、`to`のコレクションの形式に変換される。
+
+https://clojuredocs.org/clojure.core/into
+
+```clojure
+(into [1 2 3] [4 5 6])
+;; [1 2 3 4 5 6]
+
+(into [] '(1 2 3 4))
+;; [1 2 3 4]
+
+(into #{} [1 2 3 4])
+;; #{1 4 3 2}
+
+(into {:a 1} [[:b 2] [:c 3]])
+;; {:a 1, :b 2, :c 3}
+```
 
 and more...
