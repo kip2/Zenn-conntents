@@ -3,10 +3,11 @@ title: "Clojureで知った関数をまとめる"
 emoji: "🐈"
 type: "tech"
 topics: ["clojure"]
-published: false
+published: true
 ---
 
 Clojureで知った関数・マクロをまとめる。
+追記してどんどん増やしていくので、ぼちぼち内容が増えていくと思う。
 
 ## defn-
 
@@ -150,3 +151,5 @@ https://clojure.org/guides/threading_macros
 ;; "Age in 10 years: 38"
 
 ```
+
+and more...
