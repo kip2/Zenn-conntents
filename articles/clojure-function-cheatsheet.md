@@ -173,4 +173,50 @@ https://clojuredocs.org/clojure.core/last
 ;; nil
 ```
 
+## rest
+
+`(rest coll)`
+
+シーケンスの最初の要素を取り除いた、残りの要素を返却する。
+新しいリストを返すのではなく、元のシーケンスから先頭の要素を除いた遅延シーケンスを返す。
+
+https://clojuredocs.org/clojure.core/rest
+
+```clojure
+(rest [1 2 3 4])
+;; (2 3 4)
+(rest '(10 20 30 40))
+;; (20 30 40)
+(rest [])
+;; ()
+```
+
+新しいリストを返したい場合は明示的に返す方法を取る。
+
+```clojure
+(vec (rest [1 2 3 4 5]))
+;; [2 3 4 5]
+(list* (rest '(1 2 3 4 5))) ;-> 遅延シーケンスなのでlist*を使用する。
+;; (2 3 4 5)
+```
+
+#### nextとrestの違い
+
+空シーケンス、もしくは要素一つのシーケンスを渡した際に違いがある。
+`next`は`nil`を返す。
+`rest`は`()`を返す。
+
+```clojure
+(next [])
+;; nil
+(rest [])
+;; ()
+
+(next [1])
+;; nil
+(rest [1])
+;; ()
+```
+
+
 and more...
