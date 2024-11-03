@@ -53,8 +53,44 @@ https://clojuredocs.org/clojure.core/defn-
 メタデータを取得するための関数。
 
 ```clojure
+(def ^:private myvar 42)
+(defn ^:deprecated myfn [] "Hello")
 
+(meta #'myvar)
+;; {:private true,
+;;  :line 438,
+;;  :column 1,
+;;  :file "/Users/hello-clojure/src/hello_clojure/core.clj",
+;;  :name myvar,
+;;  :ns #namespace[hello-clojure.core]}
+
+(meta #'myfn)
+;; {:deprecated true,
+;;  :arglists ([]),
+;;  :line 439,
+;;  :column 1,
+;;  :file "/Users/hello-clojure/src/hello_clojure/core.clj",
+;;  :name myfn,
+;;  :ns #namespace[hello-clojure.core]}
 ```
 
+なお、メタデータ付与のための記法として、以下のようなものがある。
+
+`^:keyword`
+`^{:key1 val1, key2 val2}`
+
+メタデータ取得のための記法として、以下の記法がある。
+
+`#'obj`
+
+```clojure
+;; 何もつけないと値として評価される
+myvar
+;; 42
+
+;; #'をつけると、オブジェクトそのものが返される
+#'myvar
+;; #'hello-clojure.core/myvar
+```
 
 https://clojuredocs.org/clojure.core/meta
