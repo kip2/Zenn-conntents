@@ -173,6 +173,26 @@ https://clojuredocs.org/clojure.core/last
 ;; nil
 ```
 
+## cons
+
+`(cons x seq)`
+
+シーケンスの先頭に要素を追加した、新しいリストを返す。
+なお、`nil`はシーケンスとして扱われる。
+
+```clojure
+(cons 1 [2 3 4])
+;; (1 2 3 4)
+(cons "a" '("b" "c"))
+;; ("a" "b" "c")
+
+;; nilをシーケンスとして扱う
+(cons 1 nil)
+;; (1)
+(cons "a" nil)
+;; ("a")
+```
+
 ## rest
 
 `(rest coll)`
