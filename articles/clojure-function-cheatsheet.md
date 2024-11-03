@@ -311,4 +311,31 @@ https://clojuredocs.org/clojure.core/into
 ;; (:c :b :a 1 2 3)
 ```
 
+## defonce
+
+`(defonce name expr)`
+
+グローバル変数を一度だけ評価するためのマクロ。
+すでにその変数が存在している場合は再評価されない。
+
+https://clojuredocs.org/clojure.core/defonce
+
+```clojure
+;; DBコネクションの例
+(defonce db-connection (initialize-db))
+
+;; コンフィグなど
+(defonce config {:db "localhost" :port 54321})
+```
+
+別の例。
+カウンターをインクリメントし、その後にもう一度`(defonce counter (atom 0))`を実行しても、再評価されないので、カウンターの初期化が防げる。
+
+```clojure
+(defonce counter (atom 0))
+
+(defn increment-counter []
+    (swap! counter inc))
+```
+
 and more...
