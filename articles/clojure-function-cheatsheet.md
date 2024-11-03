@@ -378,4 +378,28 @@ https://clojuredocs.org/clojure.core/atom
 参考
 https://japan-clojurians.github.io/clojure-site-ja/reference/atoms
 
+## use-fixtures
+
+clojure.testが提供するマクロ。
+テストの前後処理を定義する。
+
+https://clojuredocs.org/clojure.test/use-fixtures
+
+```clojure
+;; clojure.testを使うので、インポート
+(:require [clojure.test :refer :all])
+
+;; :onceでテスト全体で一度だけ実行
+(use-fixtures :once
+  (fn [tests]
+    ;; 前処理。サーバーの起動
+    (start-server)
+    (try
+      ;; テストの実行
+      (tests)
+      ;; 後処理。サーバーの停止
+      (finally
+        (stop-server)))))
+```
+
 and more...
