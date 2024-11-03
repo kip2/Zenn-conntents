@@ -338,4 +338,44 @@ https://clojuredocs.org/clojure.core/defonce
     (swap! counter inc))
 ```
 
+## atom
+
+`(atom x)`
+`(atom x & options)`
+
+スレッドセーフでミュータブルを扱うための仕組み。
+複数のスレッドからのアクセスがあっても、安全に変更できる。
+ここではあくまで使い方について記載しているので、仕組みそのものは別記事などを見てほしい。
+
+https://clojuredocs.org/clojure.core/atom
+
+
+```clojure
+;; 基本構文
+(def myatom (atom initial-avlue))
+;; myatomにatomを格納
+;; initial-valueが初期値
+```
+
+値の取得
+
+```clojure
+;; 現在の値を取得
+@myatom
+;; derefでも同様に取得可能
+(deref myatom)
+```
+
+値の更新
+
+```clojure
+;; 現在の値をインクリメント
+(swap! myatom inc)
+;; 値を100にリセット
+(reset! myatom 100)
+```
+
+参考
+https://japan-clojurians.github.io/clojure-site-ja/reference/atoms
+
 and more...
