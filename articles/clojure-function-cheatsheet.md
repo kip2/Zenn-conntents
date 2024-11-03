@@ -1,5 +1,5 @@
 ---
-title: "Clojureで知った関数・マクロをまとめる"
+title: "Clojureの関数・マクロの自分用チートシート"
 emoji: "🐈"
 type: "tech"
 topics: ["clojure"]
