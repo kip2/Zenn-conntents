@@ -36,6 +36,7 @@ Clojureで知った関数・マクロをまとめる。
   [x]
   (* x x))
 
+;; :privateのメタデータが無いことが確認できる。
 (meta #'public-function)
 ;; {:arglists ([x]),
 ;;  :line 426,
