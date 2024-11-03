@@ -1,5 +1,5 @@
 ---
-title: "Clojureで知った関数をまとめる"
+title: "Clojureで知った関数・マクロをまとめる"
 emoji: "🐈"
 type: "tech"
 topics: ["clojure"]
