@@ -152,4 +152,25 @@ https://clojure.org/guides/threading_macros
 
 ```
 
-and more...
+## last
+
+`(last coll)`
+
+シーケンス(リスト、ベクタなど)の最後の要素を取得する。
+
+https://clojuredocs.org/clojure.core/last
+
+```clojure
+(last [1 2 3 4])
+;; 4
+(last '(10 20 30))
+;; 30
+(last ["c" "l" "o" "j" "u" "r" "e"])
+;; "e"
+(last [])
+;; nil
+(last '())
+;; nil
+```
+
+
