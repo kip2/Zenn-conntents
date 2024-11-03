@@ -402,4 +402,25 @@ https://clojuredocs.org/clojure.test/use-fixtures
         (stop-server)))))
 ```
 
+## slurp
+
+`(slurp f & opts)`
+
+ファイルやURLやストリームなどのリソースから、内容を一度にすべて読み込んで文字列を返す。
+小さいファイルなど、扱う容量が小さい場合に使用する。
+
+https://clojuredocs.org/clojure.core/slurp
+
+```clojure
+;; ファイルからの読み込み
+(slurp "path/file.txt")
+
+;; URLからの読みこみ
+(slurp "https://example.com")
+
+;; ストリームからの読み込み
+(with-open [rdr (java.io.InputStreamReader. (java.io.FileInputStream. "read-file.txt"))]
+    (slurp rdr))
+```
+
 and more...
