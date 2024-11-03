@@ -423,4 +423,42 @@ https://clojuredocs.org/clojure.core/slurp
     (slurp rdr))
 ```
 
+## get-in
+
+`(get-in m ks)`
+`(get-in m ks not-found)`
+
+`m`: 取り出し元となるデータ構造。
+`ks`: 値を取り出すための階層。キーのリストとして渡す。
+`not-found`: 指定したパスが存在しない場合に返すデフォルト値。
+
+ネストされたデータ構造(マップやベクター)の中から特定の値を取得する。
+
+https://clojuredocs.org/clojure.core/get-in
+
+
+例として、以下のようなネスト構造のデータがあるとする。
+
+```clojure
+(def person {:name "Alice"
+            :address {:city "Wonderland"
+                        :postal-code "12345"}})
+```
+
+```clojure
+;; :addressの:cityを取り出す場合
+(get-in person [:address :city])
+;; "Wonderland"
+
+;; 値がない場合のデフォルト値
+(get-in person [:address :country] "Unknown")
+;; "Unknown"
+```
+
+なお、get-inを使わない場合は以下のようになる。
+
+```clojure
+(get (get (:address person) :city) nil)
+```
+
 and more...
