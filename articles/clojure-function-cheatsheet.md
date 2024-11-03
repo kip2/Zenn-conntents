@@ -180,6 +180,8 @@ https://clojuredocs.org/clojure.core/last
 シーケンスの先頭に要素を追加した、新しいリストを返す。
 なお、`nil`はシーケンスとして扱われる。
 
+https://clojuredocs.org/clojure.core/cons
+
 ```clojure
 (cons 1 [2 3 4])
 ;; (1 2 3 4)
