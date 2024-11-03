@@ -95,3 +95,58 @@ myvar
 ```
 
 https://clojuredocs.org/clojure.core/meta
+
+## threading-macro
+
+`->`
+
+メソッドチェーンのようなことができるマクロ。
+前のメソッドの処理結果は、次のメソッドの第一引数に渡されるようだ。
+
+https://clojure.org/guides/threading_macros
+
+```clojure
+(def text " hello world ")
+
+;; threading macroを使う場合
+(-> text
+    clojure.string/trim
+    clojure.string/upper-case
+    (str "!!!"))
+;; "HELLO WORLD!!!" ;-> 第一引数に渡されているのがわかる
+
+;; threading macroを使わない場合
+(str (clojure.string/upper-case (clojure.string/trim text)) "!!!")
+;; "HELLO WORLD!!!"
+```
+
+## threading-last-macro
+
+`->>`
+
+メソッドチェーンのようなことができるマクロ。
+前のメソッドの処理結果は、次のメソッドの末尾の引数に渡されるようだ。
+
+https://clojure.org/guides/threading_macros
+
+```clojure
+(def person {:name "Alice" :age 28 :city "New York"})
+
+(str "Age in 10 years: " (+ 10 (:age person)))
+;; "Age in 10 years: 38" 
+
+;; threading macroでの例
+(-> person
+    (:age)
+    (+ 10)
+    (str "Age in 10 years: "))
+;; "38Age in 10 years: "
+
+;; threading last macroでの例
+(->> person
+     (:age)
+     (+ 10)
+     (str "Age in 10 years: "))
+;; "Age in 10 years: 38"
+
+```
