@@ -569,7 +569,7 @@ https://clojuredocs.org/clojure.core/assoc
 `(map f c1 c2 c3)`
 `(map f c1 c2 c3 & colls)`
 
-リストやベクタなどのシーケンスの各要素に関数を適用し、新しいシーケンスを返す関数。
+リストやベクタなどのシーケンスの各要素に関数を適用し、新しいリストを返す関数。
 
 https://clojuredocs.org/clojure.core/map
 
@@ -588,5 +588,31 @@ https://clojuredocs.org/clojure.core/map
 (take 5 (map #(* 2 %) (range)))
 ;; (0 2 4 6 8)
 ```
+
+## mapv
+
+`(map f)`
+`(map f coll)`
+`(map f c1 c2)`
+`(map f c1 c2 c3)`
+`(map f c1 c2 c3 & colls)`
+
+リストやベクタなどのシーケンスの各要素に関数を適用し、新しいベクタを返す関数。
+mapと同機能だが、ベクタを返すところが違う。
+
+https://clojuredocs.org/clojure.core/mapv
+
+```clojure
+(mapv inc [1 2 3 4 5])
+;; [2 3 4 5 6]
+
+(mapv + [1 2 3] [4 5 6])
+;; [5 7 9]
+
+;; mapvは即時評価なので、無限シーケンスは扱えない。
+;; (take 5 (mapv #(* 2 %) (range)))
+```
+
+---
 
 and more...
