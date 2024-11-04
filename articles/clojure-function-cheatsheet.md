@@ -661,6 +661,28 @@ https://clojuredocs.org/clojure.core/every_q
 ;; true
 ```
 
+## not-every?
+
+`(not-every? pred coll)`
+
+リストやベクタなどのコレクション内のすべての要素が、指定した条件を満たしていないかどうかをチェックする。
+1つでも条件を満たしていない要素がないかをチェックしたい用途として使う(偶数の集合に奇数が混じっていないか、など)。
+
+https://clojuredocs.org/clojure.core/not-every_q
+
+```clojure
+;; すべての要素が偶数でない
+(not-every? even? [2 4 5 6])
+;; true
+
+;; すべての要素が条件を満たしている場合
+(not-every? even? [2 4 6 8])
+;; false
+
+(not-every? even? [])
+;; false
+```
+
 ---
 
 and more...
