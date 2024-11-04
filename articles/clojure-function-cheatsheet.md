@@ -637,6 +637,30 @@ https://clojuredocs.org/clojure.core/filter
 ;; (0 2 4)
 ```
 
+## every?
+
+`(every? pred coll)`
+
+リストやベクタなどのコレクション内のすべての要素が指定した条件を満たすかどうかをチェックする
+
+https://clojuredocs.org/clojure.core/every_q
+
+```clojure
+(every? even? [2 4 6 8])
+;; true
+(every? even? [1 3 5 7])
+;; false
+(every? even? [1 2 3 4 5 6])
+;; false
+
+(every? string? ["apple" "orange" "banana"])
+;; true
+
+;; 空のコレクションはtrueと評価されることに注意する。
+(every? even? [])
+;; true
+```
+
 ---
 
 and more...
