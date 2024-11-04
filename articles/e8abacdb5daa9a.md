@@ -8,7 +8,7 @@ published: true
 published_at: "2024-11-01 22:41"
 ---
 
-Clojureで文字列操するときに使うclojure.stringの、簡単な使い方まとめ。
+Clojureで文字列操作するときに使うclojure.stringの、簡単な使い方まとめ。
 
 「ClojureDocsを見ろよ」という話なのだが、主に自分の備忘用にチートシートとしてまとめる。
 
