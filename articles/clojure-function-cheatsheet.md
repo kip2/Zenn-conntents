@@ -523,4 +523,42 @@ https://clojuredocs.org/clojure.core/sort
 ;; ("orange" "banana" "apple" "grape")
 ```
 
+## assoc
+
+`(assoc map key val)`
+`(assoc map key val & kvs)`
+
+マップやベクターに新しいキーと値を追加したり、既存のキーの値を変更する。
+
+https://clojuredocs.org/clojure.core/assoc
+
+
+```clojure
+;; リストの場合
+(def a-map {:a 1 :b 2})
+
+;; 新しいキーの追加
+(assoc a-map :c 3)
+;; {:a 1, :b 2, :c 3}
+
+;; 既存のキーの変更
+(assoc a-map :a 10)
+;; {:a 10, :b 2}
+
+;; 複数のキーと値の追加と更新
+(assoc a-map :a 10 :c 3 :d 4)
+;; {:a 10, :b 2, :c 3, :d 4}
+
+;; ベクターの場合
+(def v-map [1 2 3])
+
+;; 値の更新
+(assoc v-map 1 20)
+;; [1 20 3]
+
+;; 範囲外はアクセスできない
+(assoc v-map 99 30)
+;; Execution error (IndexOutOfBoundsException) 
+```
+
 and more...
