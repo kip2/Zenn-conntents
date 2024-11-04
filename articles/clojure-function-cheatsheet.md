@@ -461,4 +461,43 @@ https://clojuredocs.org/clojure.core/get-in
 (get (get (:address person) :city) nil)
 ```
 
+## prn
+
+`(prn & more)`
+
+値をコンソールに出力する。
+主に、デバッグ時にClojureのデータ構造を確認するために使う。
+
+https://clojuredocs.org/clojure.core/prn
+
+```clojure
+(prn "Hello, Clojure!")
+;; "Hello, Clojure!"
+```
+
+printlnとの違いは
+
+- エスケープシーケンスがそのまま出力されること。
+- Clojureのデータ構造をそのまま表せること。
+
+```clojure
+;; エスケープシーケンスが出力される。
+(prn "Hello, \"Clojure\"")
+;; "Hello, \"Clojure\""
+
+;; エスケープシーケンスが出力されない。
+(println "Hello, \"Clojure\"")
+;; Hello, "Clojure"
+
+
+(def a-map {:a 1 :b "hello" :c [1 2 3]})
+
+;; 文字列にダブルクォートがついた状態で出力される
+(prn a-map)
+;; {:a 1, :b "hello", :c [1 2 3]}
+;; 文字列にダブルクォートがない状態で出力される
+(println a-map)
+;; {:a 1, :b hello, :c [1 2 3]}
+```
+
 and more...
