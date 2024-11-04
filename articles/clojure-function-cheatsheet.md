@@ -500,4 +500,27 @@ printlnとの違いは
 ;; {:a 1, :b hello, :c [1 2 3]}
 ```
 
+## sort
+
+`(sort coll)`
+`(sort comp coll)`
+
+コレクションの要素を並び替えるための関数。
+デフォルトでは昇順だが、カスタム関数を指定することで順序は変更できる。
+
+https://clojuredocs.org/clojure.core/sort
+
+```clojure
+(sort [3 1 4 1 5 8 9 2 7 3])
+;; (1 1 2 3 3 4 5 7 8 9)
+
+(sort ["apple" "orange" "banana" "grape"])
+;; ("apple" "banana" "grape" "orange")
+
+(sort > [3 1 4 1 5 8 9 2 7 3])
+;; (9 8 7 5 4 3 3 2 1 1)
+(sort #(> (count %1) (count %2)) ["apple" "orange" "banana" "grape"])
+;; ("orange" "banana" "apple" "grape")
+```
+
 and more...
