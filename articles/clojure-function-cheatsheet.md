@@ -613,6 +613,26 @@ https://clojuredocs.org/clojure.core/mapv
 ;; (take 5 (mapv #(* 2 %) (range)))
 ```
 
+## filter
+
+`(filter pred)`
+`(filter pred coll)`
+
+リストやベクタなどのシーケンスから、特定の条件に一致する要素だけを抽出する。
+
+https://clojuredocs.org/clojure.core/filter
+
+```clojure
+(filter even? [1 2 3 4 5 6])
+;; (2 4 6)
+
+(filter #(< % 3) #{1 2 3 4 5})
+;; (1 2)
+
+(filter #(= \a (first %)) ["apple" "banana" "cherry" "apricot"])
+;; ("apple" "apricot")
+```
+
 ---
 
 and more...
