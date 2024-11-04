@@ -561,4 +561,32 @@ https://clojuredocs.org/clojure.core/assoc
 ;; Execution error (IndexOutOfBoundsException) 
 ```
 
+## map
+
+`(map f)`
+`(map f coll)`
+`(map f c1 c2)`
+`(map f c1 c2 c3)`
+`(map f c1 c2 c3 & colls)`
+
+リストやベクタなどのシーケンスの各要素に関数を適用し、新しいシーケンスを返す関数。
+
+https://clojuredocs.org/clojure.core/map
+
+```clojure
+(map #(* 2 %) [1 2 3 4 5])
+;; (2 4 6 8 10)
+
+;; 複数のシーケンス
+(map + [1 2 3] [4 5 6])
+;; (5 7 9)
+
+;; 無限のシーケンスにも使用できる
+;; 無限のシーケンスの場合はtakeなどで取り出す関数を指定しないと無限に取り出されてしまう。
+;; (map #(* 2 %) (range))
+;; この場合は(0 1 2 ... 97 98 ...)という感じで表示された。
+(take 5 (map #(* 2 %) (range)))
+;; (0 2 4 6 8)
+```
+
 and more...
