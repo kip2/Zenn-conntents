@@ -631,6 +631,10 @@ https://clojuredocs.org/clojure.core/filter
 
 (filter #(= \a (first %)) ["apple" "banana" "cherry" "apricot"])
 ;; ("apple" "apricot")
+
+;; 無限シーケンスにも使用できる
+(take 3 (filter even? (range)))
+;; (0 2 4)
 ```
 
 ---
