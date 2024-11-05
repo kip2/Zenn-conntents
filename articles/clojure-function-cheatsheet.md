@@ -683,6 +683,42 @@ https://clojuredocs.org/clojure.core/not-every_q
 ;; false
 ```
 
+## letfn
+
+`(letfn [fnspecs*] exprs*)`
+
+ローカル関数を定義するために使用される。
+`let`が変数、`letfn`が関数を定義。
+
+https://clojuredocs.org/clojure.core/letfn
+
+```clojure
+(letfn [(factorial [n]
+          (if (<= n 1)
+            1
+            (* n (factorial (dec n)))))]
+  (factorial 5))
+;; 120
+
+(letfn [(to-uppercase [s] (.toUpperCase s))
+        (reverse-string [s] (apply str (reverse s)))]
+  {:uppercase (to-uppercase "clojure")
+   :reversed (reverse-string "clojure")})
+;; {:uppercase "CLOJURE", :reversed "erujolc"}
+
+;; 関数が相互参照している場合に役に立つ
+(letfn [(even? [n]
+          (if (zero? n)
+            true
+            (odd? (dec n))))
+        (odd? [n]
+          (if (zero? n)
+            false
+            (even? (dec n))))]
+  (even? 4))
+;; true
+```
+
 ---
 
 and more...
