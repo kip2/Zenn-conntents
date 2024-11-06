@@ -719,6 +719,34 @@ https://clojuredocs.org/clojure.core/letfn
 ;; true
 ```
 
+## recur
+
+再帰呼び出しを効率的に行うための関数。
+関数の末尾で使用することで、末尾再帰最適化をした再帰処理が行える。
+
+https://clojuredocs.org/clojure.core/recur
+
+```clojure
+;; 1から10までカウントする関数例。
+(loop [n 1]
+  (if (> n 10)
+    (println "End")
+    (do
+      (println n)
+      (recur (inc n)))))
+
+;; 階乗を求める関数例。
+(defn factorial [n]
+  (letfn [(fact-helper [n acc]
+            (if (zero? n)
+              acc
+              (recur (dec n) (* acc n))))]
+    (fact-helper n 1)))
+
+(factorial 5)
+;; 120
+```
+
 ## loop
 
 `(loop [bindings*] exprs*)`
