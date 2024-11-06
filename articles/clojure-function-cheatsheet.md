@@ -723,6 +723,7 @@ https://clojuredocs.org/clojure.core/letfn
 
 再帰呼び出しを効率的に行うための関数。
 関数の末尾で使用することで、末尾再帰最適化をした再帰処理が行える。
+なお、関数の末尾で使用しないと、エラーとなる。
 
 https://clojuredocs.org/clojure.core/recur
 
@@ -745,6 +746,16 @@ https://clojuredocs.org/clojure.core/recur
 
 (factorial 5)
 ;; 120
+
+;; 末尾以外で使用する場合
+(loop [n 1]
+  (if (> n 10)
+    (println "End")
+    (do
+      (println n)
+      (+ 1 (recur (inc n))))))
+;; Syntax error (UnsupportedOperationException) compiling recur at (src/main/core.clj:12:12).
+; Can only recur from tail position
 ```
 
 ## loop
