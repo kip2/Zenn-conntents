@@ -815,6 +815,7 @@ https://clojuredocs.org/clojure.core/some
 > Returns its argument.
 
 引用にあるように、引数xをそのまま返す関数。
+そのままでは意味がないように思えるが、他の関数と組み合わせるために使用する。
 
 https://clojuredocs.org/clojure.core/identity
 
