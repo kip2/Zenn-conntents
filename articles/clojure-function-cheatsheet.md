@@ -772,7 +772,32 @@ https://clojuredocs.org/clojure.core/loop
     (recur (inc n) (+ sum n))))
 ```
 
+## some
 
+`(some pred coll)`
+
+コレクションの各要素に関数を適用し、最初に条件に一致した値を返す。
+わかりにくいが、関数を適用して、「nilでもfalseでもない」最初の値を返す関数。
+なお、評価結果そのものが返ってくるため、trueで返す関数はtrueが返るし、数値を返す関数は数値が返る。
+
+https://clojuredocs.org/clojure.core/some
+
+```clojure
+(some even? [1 3 4 7 9])
+;; true
+
+(some #{3} [1 2 3 4])
+;; 3
+
+(some #(if (even? %) %) [1 3 5 6 9])
+;; 6
+
+;; nilでもfalseでもない要素を抽出
+(some identity [nil false 3 nil])
+;; 3
+```
+
+https://clojuredocs.org/clojure.core/some
 
 ---
 
