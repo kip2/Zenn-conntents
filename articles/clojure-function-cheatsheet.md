@@ -797,7 +797,31 @@ https://clojuredocs.org/clojure.core/some
 ;; 3
 ```
 
-https://clojuredocs.org/clojure.core/some
+## identity
+
+`(identity x)`
+
+> Returns its argument.
+
+引用にあるように、引数xをそのまま返す関数。
+
+https://clojuredocs.org/clojure.core/identity
+
+```clojure
+(identity 42)
+;; 42
+
+(identity "Hello, Clojure!")
+;; "Hello, Clojure!"
+
+;; someとの組み合わせ
+(some identity [nil false 3 nil])
+;; 3
+
+;; filterとの組み合わせ
+(filter identity [1 nil 2 false 3])
+;; (1 2 3)
+```
 
 ---
 
