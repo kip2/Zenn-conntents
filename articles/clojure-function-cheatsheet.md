@@ -719,6 +719,33 @@ https://clojuredocs.org/clojure.core/letfn
 ;; true
 ```
 
+## loop
+
+`(loop [bindings*] exprs*)`
+
+`recur`との組み合わせで、回数の末尾再帰最適化(TCO)を実現する。
+
+https://clojuredocs.org/clojure.core/loop
+
+```clojure
+;; 1から10までカウントする関数例。
+(loop [n 1]
+  (if (> n 10)
+    (println "End")
+    (do
+      (println n)
+      (recur (inc n)))))
+
+;; 1から10までの累積和を計算する関数例。
+
+(loop [n 1 sum 0]
+  (if (> n 10)
+    sum
+    (recur (inc n) (+ sum n))))
+```
+
+
+
 ---
 
 and more...
