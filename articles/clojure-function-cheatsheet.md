@@ -940,6 +940,35 @@ forは内容を掴みづらいので問題を書いておく。
 - 1から5までの数をxとyに格納し、xがyより小さい場合にのみ`[x y]`のペアを要素とするリストを生成する。
 - 1から5までの数をxとyとzに格納し、x + y + z = 6になる組み合わせを、`[x y z]`の形式で生成する。
 
+## sort-by
+
+`(sort-by keyfn coll)`
+`(sort-by keyfn comp coll)`
+
+コレクションをソートするための関数。
+各要素に対して、指定したキー関数を適用し、その結果に基づいたソートを行う。
+
+https://clojuredocs.org/clojure.core/sort-by
+
+
+```clojure
+(sort-by abs [3 -1 -5 2])
+;; (-1 2 3 -5)
+
+(def people [{:name "Alice" :age 30}
+             {:name "Bob" :age 25}
+             {:name "Charlie" :age 35}])
+
+(sort-by :age people)
+;; ({:name "Bob", :age 25} {:name "Alice", :age 30} {:name "Charlie", :age 35})
+
+(sort-by :age (comp - compare) people)
+;; ({:name "Charlie", :age 35} {:name "Alice", :age 30} {:name "Bob", :age 25})
+```
+
+
+
+
 ---
 
 and more...
