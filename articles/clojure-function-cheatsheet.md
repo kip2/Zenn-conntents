@@ -883,6 +883,55 @@ https://clojuredocs.org/clojure.core/neg_q
 ;; false
 ```
 
+## for
+
+`(for seq-exprs body-expr)`
+
+リスト内包を行うマクロ。
+コレクション生成のために使われる。
+一般に使われるfor文とは意味が違うことに注意する。
+
+https://clojuredocs.org/clojure.core/for
+
+構文が分かりづらいので、追加。
+
+```clojure
+(for [binding-form collection
+      :when condition
+      :let [binding-form value]]
+  body)
+```
+
+`biding-form`: コレクションの各要素が格納される変数。
+`collection`: 反復処理を行うコレクション。
+`:when`: オプションの条件。
+`:let`: オプションのローカル変数バインディング。
+`body`: 各要素に対して適用する式。
+
+```clojure
+(for [x [1 2 3 4 5]]
+  (+ x 1))
+;; (2 3 4 5 6)
+
+;; whenをつかって、フィルタリング
+(for [x (range 10)
+      :when (even? x)]
+  x)
+;; (0 2 4 6 8)
+
+;; letをつかってローカル変数を定義
+(for [x [1 2 3 4 5]
+      :let [y (* x 2)]]
+  y)
+;; (2 4 6 8 10)
+
+;; ネストしたループ
+(for [x [1 2 3]
+      y [10 20]]
+  (* x y))
+;; (10 20 20 40 30 60)
+```
+
 ---
 
 and more...
