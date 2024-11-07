@@ -966,8 +966,44 @@ https://clojuredocs.org/clojure.core/sort-by
 ;; ({:name "Charlie", :age 35} {:name "Alice", :age 30} {:name "Bob", :age 25})
 ```
 
+## comp
 
+`(comp)`
+`(comp f)`
+`(comp f g)`
+`(comp f g & fs)`
 
+関数を合成するための関数。
+複数の関数を組み合わせて一つの関数を作成する。
+合成の順番は右から左。
+
+https://clojuredocs.org/clojure.core/comp
+
+```clojure
+;; 2倍する関数
+(def multiply-by-2 (fn [x] (* x 2)))
+
+;; 1足す関数
+(def add-one (fn [x] (+ x 1)))
+
+;; 関数合成。2倍して1足す関数。
+(def double-then-add-one (comp add-one multiply-by-2))
+
+(double-then-add-one 5)
+;; 11
+
+;; 大文字にする関数をバインド
+(def to-uppercase clojure.string/upper-case)
+
+;; 最初の5つの要素を取り出す関数
+(def take-first-5 #(subs % 0 5))
+
+;; 関数合成。大文字にしてから、最初から5つの要素を取りだす。
+(def uppercase-and-take-first-5 (comp take-first-5 to-uppercase))
+
+(uppercase-and-take-first-5 "clojure")
+;; "CLOJU"
+```
 
 ---
 
