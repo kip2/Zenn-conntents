@@ -1036,6 +1036,25 @@ https://clojuredocs.org/clojure.core/compare
 
 ```
 
+## subs
+
+`(subs s start)`
+`(subs s start end)`
+
+文字列の一部を切り出す関数。
+開始位置や終了位置を指定できる。
+
+https://clojuredocs.org/clojure.core/subs
+
+```clojure
+(subs "Clojure" 2)
+;; "ojure"
+
+;; 2からはじまり、5の手前まで(インデックス2-4)
+(subs "Clojure" 2 5)
+;; "oju"
+```
+
 ---
 
 and more...
