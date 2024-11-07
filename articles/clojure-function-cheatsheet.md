@@ -1005,6 +1005,37 @@ https://clojuredocs.org/clojure.core/comp
 ;; "CLOJU"
 ```
 
+## compare
+
+`(compare x y)`
+
+2つの値を比較する。
+
+https://clojuredocs.org/clojure.core/compare
+
+```clojure
+
+(compare 3 5)
+;; -1 (3は5より小さい)
+
+(compare 5 5)
+;; 0 (5と5は等しい)
+
+(compare 7 5)
+;; 1 (7は5よりおおきい)
+
+;; 他の型
+(compare "apple" "banana")
+;; -1 (辞書順でappleはbananaより前)
+
+(compare :a :b)
+;; -1 (キーワード順で、:aは:bより前)
+
+(compare [1 2 3] [1 2 4])
+;; -1 (リストの順序で、3は4より前)
+
+```
+
 ---
 
 and more...
