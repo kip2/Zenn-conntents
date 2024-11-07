@@ -835,6 +835,34 @@ https://clojuredocs.org/clojure.core/identity
 ;; (1 2 3)
 ```
 
+## not-any?
+
+`(not-any? pred col)`
+
+シーケンス内で特定の条件を満たす要素が1つもないかどうかを判定する。
+すべての要素に対して条件がfalseである場合にtrueを返し、1つでもtrueになる要素があればfalseを返す。
+シーケンス内に条件にあう要素が「一つもない」ことを判定する場合に使う。
+
+https://clojuredocs.org/clojure.core/not-any_q
+
+```clojure
+;; すべて正なのでtrue
+(not-any? neg? [1 2 3 4 5])
+;; true
+
+;; 負の数があるのでfalse
+(not-any? neg? [1 2 -3 4 5])
+;; false
+
+;; 一つも偶数が無いことを判定
+(not-any? even? [1 3 5 7])
+;; true
+
+;; 偶数が含まれていることを判定
+(not-any? even? [1 3 4 5])
+;; false
+```
+
 ---
 
 and more...
