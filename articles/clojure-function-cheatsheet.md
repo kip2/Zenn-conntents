@@ -863,6 +863,26 @@ https://clojuredocs.org/clojure.core/not-any_q
 ;; false
 ```
 
+## neg?
+
+`(neg? num)`
+
+引数が負の数かどうかを判定する。
+
+
+https://clojuredocs.org/clojure.core/neg_q
+
+```clojure
+(neg? -5)
+;; true
+
+(neg? 3)
+;; false
+
+(neg? 0)
+;; false
+```
+
 ---
 
 and more...
