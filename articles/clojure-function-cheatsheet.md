@@ -1162,6 +1162,26 @@ https://clojuredocs.org/clojure.core/reduce
 ;; 15
 ```
 
+## source
+
+`(source n)`
+
+関数やマクロのソースコードを表示するための関数。
+
+https://clojuredocs.org/clojure.repl/source
+
+```clojure
+;; import
+(require '[clojure.repl :refer :all])
+
+(source reduce)
+
+(source filter)
+
+(source cons)
+```
+
+
 ---
 
 and more...
