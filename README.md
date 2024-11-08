@@ -9,3 +9,10 @@ The repository for managing articles to be published on Zenn
 ```sh
 npx zenn new:article --slug <article-name>
 ```
+
+## 記事のプレビュー
+
+```sh
+npx zenn preview
+```
+
