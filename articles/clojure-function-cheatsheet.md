@@ -1181,6 +1181,30 @@ https://clojuredocs.org/clojure.repl/source
 (source cons)
 ```
 
+## doc
+
+`(doc name)`
+
+関数や変数、マクロなどのドキュメント情報を表示する。
+
+https://clojuredocs.org/clojure.repl/doc
+
+```clojure
+(doc str)
+
+;; ユーザー定義の関数でも使用可能
+(defn greet
+  "takes a name retruens a greeting string."
+   [name]
+   (str "Hello, " name "!"))
+
+(doc greet)
+; -------------------------
+; user/greet
+; ([name])
+;   takes a name retruens a greeting string.
+
+```
 
 ---
 
