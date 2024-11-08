@@ -1103,6 +1103,36 @@ https://clojuredocs.org/clojure.core/take
 ;; (3 4 5)
 ```
 
+## range
+
+`(range)`
+`(range end)`
+`(range start end)`
+`(range start end step)`
+
+指定した範囲のシーケンスを生成する関数（数値のみ）。
+遅延評価されるシーケンスとなっている。
+
+https://clojuredocs.org/clojure.core/range
+
+```clojure
+;; そのままでも呼べるが、無限シーケンスとなり、実際には評価されない。
+(range)
+
+(range 5)
+;; (0 1 2 3 4)
+
+;; 3から8の前まで
+(range 3 8)
+;; (3 4 5 6 7)
+
+;; 1から10までの間を2ずつ増加する
+(range 1 10 2)
+;; (1 3 5 7 9)
+```
+
+
+
 ---
 
 and more...
