@@ -1131,7 +1131,36 @@ https://clojuredocs.org/clojure.core/range
 ;; (1 3 5 7 9)
 ```
 
+## reduce
 
+`(reduce f coll)`
+`(reduce f val coll)`
+
+コレクションの要素を1つずつ処理し、累積家かを生成するための関数。
+
+https://clojuredocs.org/clojure.core/reduce
+
+```clojure
+(reduce + [1 2 3 4 5])
+;; 15
+
+;; 初期値を指定する
+(reduce + 10 [1 2 3 4 5])
+;; 25
+
+;; リストの最大値を求める
+(reduce #(if (> %2 %1) %2 %1) [1 5 3 9 2])
+;; 9
+
+;; マップの合計を計算する
+(reduce #(+ %1 (second %2)) 0 {:a 1 :b 2 :c 3})
+;; (reduce (fn [acc [k v]] (+ acc v)) 0 {:a 1 :b 2 :c 3})
+;; 6
+
+;; 奇数の積を合算する
+(reduce * (filter odd? [1 2 3 4 5]))
+;; 15
+```
 
 ---
 
