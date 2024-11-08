@@ -1225,6 +1225,38 @@ https://clojuredocs.org/clojure.repl/find-doc
 (find-doc "reduce")
 ```
 
+## apropos
+
+`(apropos str-or-pattern)`
+
+指定したキーワードに基づいて、現在の環境内でそのキーワードにマッチするシンボルを検索する関数。
+要するに、同じプロジェクトやファイル内の関数や変数などを検索する機能。
+
+https://clojuredocs.org/clojure.repl/apropos
+
+```clojure
+(require '[clojure.repl :refer [apropos]])
+
+(apropos "reduce")
+;;  (clojure.core/ensure-reduced
+;;  clojure.core/reduce
+;;  clojure.core/reduce-kv
+;;  clojure.core/reduced
+;;  clojure.core/reduced?
+;;  clojure.core/stream-reduce!
+;;  clojure.core/unreduced
+;;  clojure.core.async/reduce)
+
+;; 同環境内の関数を検索
+(defn greet
+  "takes a name retruens a greeting string."
+   [name]
+   (str "Hello, " name "!"))
+
+(apropos "greet")
+;; (user/greet)
+```
+
 ---
 
 and more...
