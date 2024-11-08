@@ -1077,6 +1077,32 @@ https://clojuredocs.org/clojure.core/abs
 ;; NullPointerException
 ```
 
+## take
+
+`(take n)`
+`(take n coll)`
+
+シーケンスの先頭から指定された数の要素を取得する関数。
+
+https://clojuredocs.org/clojure.core/take
+
+```clojure
+(take 3 [1 2 3 4 5])
+;; (1 2 3)
+
+;; シーケンスが短い場合
+(take 10 [1 2 3])
+;; (1 2 3)
+
+;; 無限シーケンスにも使用できる
+(take 5 (range))
+;; (0 1 2 3 4)
+
+;; 他の関数と組み合わせることで、複雑なことが実現可能
+(take 3 (drop 2 [1 2 3 4 5 6]))
+;; (3 4 5)
+```
+
 ---
 
 and more...
