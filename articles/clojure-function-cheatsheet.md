@@ -1167,6 +1167,7 @@ https://clojuredocs.org/clojure.core/reduce
 `(source n)`
 
 関数やマクロのソースコードを表示するための関数。
+通常、REPL上で関数やマクロを調べるのに使用する。
 
 https://clojuredocs.org/clojure.repl/source
 
@@ -1186,6 +1187,7 @@ https://clojuredocs.org/clojure.repl/source
 `(doc name)`
 
 関数や変数、マクロなどのドキュメント情報を表示する。
+通常、REPL上で関数やマクロを調べるのに使用する。
 
 https://clojuredocs.org/clojure.repl/doc
 
@@ -1204,6 +1206,23 @@ https://clojuredocs.org/clojure.repl/doc
 ; ([name])
 ;   takes a name retruens a greeting string.
 
+```
+
+## find-doc
+
+`(find-doc re-string-or-pattern)`
+
+Clojureのドキュメント検索に使用する関数。
+指定したキーワードを含むドキュメントを持つ関数やマクロを検索できる。
+通常、REPL上で関数やマクロを調べるのに使用する。
+
+https://clojuredocs.org/clojure.repl/find-doc
+
+```clojure
+;; import
+(require '[clojure.repl :refer [find-doc]])
+
+(find-doc "reduce")
 ```
 
 ---
