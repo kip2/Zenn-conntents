@@ -1055,6 +1055,28 @@ https://clojuredocs.org/clojure.core/subs
 ;; "oju"
 ```
 
+## abs
+
+`(abs a)`
+
+絶対値を取得する関数。
+
+https://clojuredocs.org/clojure.core/abs
+
+```clojure
+(abs -10)
+;; 10
+
+(abs 5)
+;; 5
+
+(abs 0)
+;; 0
+
+(abs nil)
+;; NullPointerException
+```
+
 ---
 
 and more...
