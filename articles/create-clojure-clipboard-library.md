@@ -3,7 +3,7 @@ title: "ClojureのREPLでクリップボード操作するためのライブラ�
 emoji: "🐈️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["clojure"]
-published: false
+published: true
 ---
 
 ## 経緯
@@ -143,15 +143,17 @@ $ lein run
 
 ## 今回のライブラリについて
 
-今回作成するライブラリの要件を整理しておこう
+今回作成するライブラリの要件を整理しておこう。
+といっても一つだけど。
 
-- REPL上からクリップボードへのコピーをしたい。
+- REPL上でクリップボードへ値をコピーをしたい。
 
-主には上記の1点だが、一応以下の要件も入れておく。
+追加で以下の要件も入れておくことにする。
 
-- クリップボードから値を取得する。(REPL上で扱うかは微妙だが、シンメトリーとして作成する)
+- クリップボードから値を取得する。(REPL上で扱うかは微妙だが、対称性をもたせるために作成する)
 
 つまり、クリップボードへの入出力をするライブラリを作成するということだ。
+コードとして、これらの要件を満たすコードを書いていけば良い。
 
 ## プロジェクトの説明文などを修正
 
@@ -160,9 +162,9 @@ $ lein run
 
 ```clojure
 (defproject clj-clip "0.1.0-SNAPSHOT"
-;;   :description "FIXME: write description"
+;;   :description "FIXME: write description" ; <= ここを変更
   :description "A simple library for handling the clipboard within the Clojure REPL."
-;;   :url "http://example.com/FIXME"
+;;   :url "http://example.com/FIXME" ; <= ここを変更
   :url "https://github.com/kip2/clj-clip"
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
             :url "https://www.eclipse.org/legal/epl-2.0/"}
@@ -175,7 +177,7 @@ $ lein run
 では、実際にコードを書いていこう。
 まずはテストコードから書く。
 
-やりたいことはクリップボードの出し入れだけなので、クリップボードからの取得と、クリップボードへのコピーをテストする。
+やりたいことはクリップボードへのデータの出し入れだけなので、クリップボードからのデータ取得と、クリップボードへのデータの保存をテストする。
 
 `test/clj-clip/core.clj`
 ```clojure
@@ -191,9 +193,9 @@ $ lein run
       (is (= data (read-clip))))))
 ```
 
-`write-clip`と`raed-clip`は、TDDの作法に則って存在するものとして呼び出す。
-
-これで、テストを実行するとレッドバーになるので、最小限のコードを書いてグリーンバーにする。
+`write-clip`と`raed-clip`は、存在するものとして呼び出している。
+もちろん存在しない関数を呼び出しているので、テストを実行するとレッドバーになる。
+レッドバーになったことを確認したあと、最小限のコードを書いてグリーンバーにしていく。
 
 `src/clj-clip/core.clj`
 ```clojure
@@ -207,17 +209,15 @@ $ lein run
   "Hello, clipboard!")
 ```
 
-:::message
-厳密なTDDにはなってないと思うけど、いまだお作法がわかっていない不調法ものなので、見逃してほしいです...
-やめて...まさかりなげないで...
-:::
+~~TDD初心者のため厳密なTDDにはなってないと思うけど、いまだお作法がわかっていないので見逃して...~~
+~~まさかりなげないで(`；ω；´)...~~
 
 ## 実装コードの中身を書いていく
 
 テストが通ったので、あとは実装していく。
 
-クリップボードから取得するには何を使えばいいのだろうか?
-調べたところ、java.awt.Toolkitを使うと良いらしい。
+クリップボードからデータを取得するには、どのような関数やライブラリを使えばいいのだろうか?
+調べたところ、java.awt.Toolkitを使うと良いらしいので、これを使っていく。
 
 https://qiita.com/kurogelee/items/d6dacf64a0b0fe575bb6
 https://docs.oracle.com/javase/jp/8/docs/api/java/awt/datatransfer/Clipboard.html
@@ -237,8 +237,9 @@ https://docs.oracle.com/javase/jp/8/docs/api/java/awt/datatransfer/Clipboard.htm
 クリップボードへのコネクションはどのように張るのだろうか？
 
 https://allabout.co.jp/gm/gc/80702/
+
 この記事によると、以下のコード例のようにクリップボードの取得をするらしい。
-2行目のが該当のコード。
+2行目のが今回欲しいコードだと思う。
 
 ```java
 String str = "Test"; // 保存するテキスト
@@ -247,7 +248,7 @@ StringSelection selection = new StringSelection(str);
 clipboard.setContents(selection, null);
 ```
 
-これをClojureでも同様にやる。
+これをClojureでも同じ様にやる。
 
 ```clojure
 (defn clipboard []
@@ -311,14 +312,15 @@ REPLから呼び出して、貼り付けて目視確認すれば良い。
 ;; Hello, Test!
 ```
 
-テスト成功したので、取得できたことがわかった。
+テストが成功したので、クリップボードからデータを取得できることがわかった。
 次にいこう。
 
 ## クリップボードの内容を取得するコードを書く
 
-さて、クリップボードからの内容取得のコードを書いていこう。
+さて、クリップボードからのデータ取得のコードを書いていこう。
 
-再度、こちらの記事から引用する。
+再度、こちらの記事から該当しそうなコードを引用する。
+
 https://allabout.co.jp/gm/gc/80702/
 
 ```java
@@ -334,7 +336,7 @@ try {
 }
 ```
 
-とりあえずほぼ忠実に書いてみる。
+とりあえず、ほぼ忠実に書いてみる。
 
 ```clojure
 (defn read-clip []
@@ -353,9 +355,10 @@ https://docs.oracle.com/javase/jp/8/docs/api/java/awt/datatransfer/Clipboard.htm
 https://docs.oracle.com/javase/jp/8/docs/api/java/awt/datatransfer/Transferable.html#isDataFlavorSupported-java.awt.datatransfer.DataFlavor-
 
 
-さて、テストコードを実行して動作を確かめてみよう。
+書けたので、テストコードを実行して動作を確かめてみよう。
 
-テストコードは再掲。
+テストコードは以前書いたものをここで初めて使用する。
+コード自体は再掲。
 
 ```clojure
 (deftest clipboard-test
@@ -366,19 +369,24 @@ https://docs.oracle.com/javase/jp/8/docs/api/java/awt/datatransfer/Transferable.
       (is (= data (read-clip))))))
 ```
 
-ちゃんとテストも通っているので、クリップボードの内容を取得できている。
+実行したところ、ちゃんとテストも通ったので、クリップボードの内容を取得できることが確認できた。
 
 ![テストコード成功](/images/create-clojure-clipboard-library/pic5.png)
 
-## ちょっとリファクタリング
+## リファクタリングでClojureらしいコードに
 
-今回書いたコードはClojureらしいコードだろうか？
+さて、今回書いたコードはClojureらしいコードだろうか？
+Javaのコードをそのまま直したので、Clojuraらしいコードにはなっていないと思う。
+
+しかし、Clojureのライブラリとして作るので、Clojureのお作法に乗っ取る必要があるだろう。
+というわけでClojureらしいコードにするため、リファクタリングを行うこととする。
 
 本来はコードレビューをしてもらって、フィードバックをしてもらうのだろうが、残念ながら筆者はぼっち気質のため、気軽に話せるClojureに詳しい人はいない。
 
-というわけで、chatGPT大先生にきいてみよう。
+なので、chatGPT大先生にきいてコードレビューをお願いしよう。
+~~ぼっちにも優しい時代になったものだ。~~
 
-さて、色々とやりとりしたので途中経過は省略し、結果としては以下のコードになった。
+さて、色々とやりとりしてClojureらしいコードの書き方は教えてもらったが、途中は省略して結果のコードだけ示す。
 
 ```clojure
 ;; 外部からは呼ばれないので、ローカル関数に変更
@@ -407,19 +415,21 @@ https://docs.oracle.com/javase/jp/8/docs/api/java/awt/datatransfer/Transferable.
         (println "I/O error" (.getMessage e))))))
 ```
 
-一行一行変更する中で、テストコードを実行しながら行ったので、問題なくリファクタリングできた。
+テストコードを実行しながら変更したので、問題なくリファクタリングできた。
+テストがあると変更にしやすいから本当にいい。
 
 ---
 
 # ライブラリの使用
 
-さて、つくったライブラリを他のプロジェクトから使ってみよう。
+さて、せっかくライブラリを作ったので、他のプロジェクトから使ってみよう。
 
 ## ローカルリポジトリへの登録
 
-さて、まずはローカルリポジトリへの登録が必要らしいので行っていく。
+さて、まずはローカルリポジトリへの登録が必要らしい。
+登録していこう。
 
-`lein install`をすると良いらしい。
+登録には`lein install`を使う。
 このコマンドを行うと、ローカルのMavenリポジトリにライブラリがインストールされ、他のプロジェクトでも使えるようになるとのこと。
 
 ```sh
@@ -552,6 +562,21 @@ Sending com/github/kip2/clj-clip/maven-metadata.xml (1k)
 デプロイが終わると、無事にClojarsにライブラリが登録される。
 ![ライブラリの公開ページ](/images/create-clojure-clipboard-library/pic7.png)
 
+:::message
+本当はGPGを使用してデプロイする方法もあるらしいが、今回はこの形でのデプロイとしている。
+~~何回やってもうまくいかないから諦めたとかではない。決してない。~~
+:::
+
 ## 最後に
 
-本当はローカルで利用できるところまで作る予定だったが、せっかくならとClojarsに登録するところまで冒険ができた。
+本当はローカルで利用できるところまで作る予定だったが、せっかくならとClojarsに登録するところまで冒険ができたので、個人的に楽しかった。
+
+実際に作ってみることで、ライブラリ作者さんはこういった苦労をしているのだなーというのがしれたのも収穫かも。
+日夜苦労をしながら使いやすいライブラリを世に送り出す作者さんたちには、本当に頭が上がらない。
+より感謝しながら使っていこうとおもいました。
+
+しかしライブラリ作るのも楽しいね。
+
+みんなもライブラリ作ってClojureを充実させていこうよ。
+自分で使うものを作って人に使ってもらうの、結構楽しいよ？
+
