@@ -1,5 +1,5 @@
 ---
-title: "REPLでクリップボード操作するためのライブラリを作成する"
+title: "ClojureのREPLでクリップボード操作するためのライブラリを、作成して公開するまで"
 emoji: "🐈️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["clojure"]
@@ -8,14 +8,20 @@ published: false
 
 ## 経緯
 
-Clojureを触っているときに、マウスを使っていちいちコピペするのが面倒になったので、関数から気軽にクリップボードコピーできればいいな、と思って作成しようと思い立ったのが経緯。
-
+ClojureのREPLを触っているときに、マウスを使っていちいちコピペするのが面倒になったので、関数から気軽にクリップボードコピーできればいいな、と思って作成しようと思い立ったのが経緯。
 macでいうところの`pbcopy`のような感じで、REPL上でコピーがしたかっのだ。
 
 こういう感じのやつ。
+
 ```sh
-cat file-name | grep pbcopy
+$ cat file-name | grep pbcopy
 ```
+
+実際にはREPL上で扱うので、シェルコマンドと全く同じとはいかないが、`(clipboard "want-to-copy-text")`の様な感じで、気軽にクリップボードにコピーがするライブラリを作成して、手順を記事化する試み。
+
+あとあと手順絶対忘れるマンなので、詳細に手順を書いており、記載が冗長かも？
+
+---
 
 ## リポジトリの作成
 
@@ -46,7 +52,7 @@ ssh設定を行っているなら`SSH`を、そうでないなら`HTTPS`でい�
 コピーしたアドレスを使用し、ローカル環境で以下のコマンドを入力する。
 
 ```sh
-git clone <コピーしたアドレス>
+$ git clone <コピーしたアドレス>
 
 # 例として、HTTPSだと以下の形式
 # git clone https:githb.com/user-name/repository-name.git
@@ -61,12 +67,12 @@ git clone <コピーしたアドレス>
 
 ```sh
 # クローンしたリポジトリのディレクトリに移動する。
-cd <repository-name>
+$ cd <repository-name>
 # カレントディレクトリをVSCodeで開く。
-code .
+$ code .
 
 # 以下の形式でも開ける。
-code <repository-name>
+$ code <repository-name>
 ```
 
 このあとはVSCode上のターミナルから操作を行う。
@@ -76,7 +82,7 @@ code <repository-name>
 先ほど開いたディレクトリ内で、以下のコマンドを使用してプロジェクトを作成する。
 
 ```sh
-lein new clj-clip
+$ lein new clj-clip
 ```
 
 これで環境の準備がおわった。
@@ -102,7 +108,7 @@ lein new clj-clip
   :repl-options {:init-ns clj-clip.core})
 ```
 
-そして、動作確認用のハローワールドを書く。
+そして、動作確認用の`Hello, World!`を書く。
 
 `src/clj-clip/core.clj`
 
@@ -120,10 +126,10 @@ lein new clj-clip
 
 ```
 
-さて、あとはプロジェクトのルートディレクトリで以下のコマンドをうち、動作を確認しよう。
+さて、あとはプロジェクトのルートディレクトリで以下のコマンドを打ち、動作を確認しよう。
 
 ```sh
-lein run
+$ lein run
 # Hello Clojure!と表示されればOK
 ```
 
@@ -417,7 +423,7 @@ https://docs.oracle.com/javase/jp/8/docs/api/java/awt/datatransfer/Transferable.
 このコマンドを行うと、ローカルのMavenリポジトリにライブラリがインストールされ、他のプロジェクトでも使えるようになるとのこと。
 
 ```sh
-lein install
+$ lein install
 # Created /Users/clj-clip/target/clj-clip-0.1.0-SNAPSHOT.jar
 # Wrote /Users/clj-clip/pom.xml
 # Installed jar and pom into local repo.
@@ -427,8 +433,8 @@ lein install
 確かめてみよう。
 
 ```sh
-ls ~/.m2/repository | grep clj-clip
-clj-clip
+$ ls ~/.m2/repository | grep clj-clip
+$ clj-clip
 ```
 
 たしかに格納されている。
@@ -436,7 +442,7 @@ clj-clip
 中身はどうなっているのだろうか？
 
 ```sh
-tree ~/.m2/repository/clj-clip
+$ tree ~/.m2/repository/clj-clip
 /Users/.m2/repository/clj-clip
 └── clj-clip
     ├── 0.1.0-SNAPSHOT
@@ -481,8 +487,71 @@ tree ~/.m2/repository/clj-clip
 
 # ライブラリのデプロイ
 
-せっかくなので、つくったライブラリをclojarsにデプロイしてみよう。
+せっかくなので、つくったライブラリをClojarsにデプロイしてみよう。
 
 https://clojars.org/
 
 https://qiita.com/totakke/items/e20405be6c2cf55ec9ac
+
+
+## Clojarsにユーザー登録をする。
+
+Clojarsにユーザー登録する。
+k
+https://clojars.org/
+
+特に言うこともないので、これは省略する。
+
+## デプロイ用トークンを生成
+
+Clojarsのダッシュボードから、デプロイ用のトークンを生成する。
+
+![デプロイトークン作成](/images/create-clojure-clipboard-library/pic6.png)
+
+`Create Token`をクリックすると、画面遷移してトークンが生成される (スクショをミスったので、スクショなし)。
+
+トークンは一度しか表示されないので、手元に大事に保存しておくこと。
+
+## project.cljを更新
+
+`project.clj`に以下の項目を追加する。
+
+```clojure
+  :deploy-repositories [["clojars" {:url "https://repo.clojars.org"}]]
+```
+
+## デプロイコマンドの実行
+
+```sh
+$ lein deploy clojars
+# ユーザー名とパスワードを求められる。
+# ユーザー名はClojarsに登録したユーザー名を入力する。
+Username: your-username
+# パスワードは、Clojarsで作成したデプロイトークンを入力する。
+Password: your-deploy-token
+
+# デプロイ作業が行われる。
+Created /Users/clj-clip/target/clj-clip-0.1.0.jar
+Wrote /Users/clj-clip/pom.xml
+Need to sign 2 files
+[1/2] Signing /Users/clj-clip/target/clj-clip-0.1.0.jar
+[2/2] Signing /Users/clj-clip/pom.xml
+Sending com/github/kip2/clj-clip/0.1.0/clj-clip-0.1.0.jar (9k)
+    to https://repo.clojars.org/
+Sending com/github/kip2/clj-clip/0.1.0/clj-clip-0.1.0.pom (2k)
+    to https://repo.clojars.org/
+Sending com/github/kip2/clj-clip/0.1.0/clj-clip-0.1.0.jar.asc (1k)
+    to https://repo.clojars.org/
+Sending com/github/kip2/clj-clip/0.1.0/clj-clip-0.1.0.pom.asc (1k)
+    to https://repo.clojars.org/
+Could not find metadata com.github.kip2:clj-clip/maven-metadata.xml in clojars (https://repo.clojars.org)
+Sending com/github/kip2/clj-clip/maven-metadata.xml (1k)
+    to https://repo.clojars.org/
+```
+
+デプロイが終わると、無事にClojarsにライブラリが登録される。
+![ライブラリの公開ページ](/images/create-clojure-clipboard-library/pic7.png)
+
+## 最後に
+
+本当はローカルで利用できるところまで作る予定だったが、せっかくならとClojarsに登録するところまで冒険ができた。
