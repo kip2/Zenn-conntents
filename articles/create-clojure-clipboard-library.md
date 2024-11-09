@@ -1,5 +1,5 @@
 ---
-title: "ClojureのREPLでクリップボード操作するためのライブラリを、作成して公開するまで"
+title: "Clojureのライブラリを作成して公開するまで"
 emoji: "🐈️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["clojure"]
