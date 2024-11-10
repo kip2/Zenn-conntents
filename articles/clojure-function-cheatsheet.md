@@ -1323,4 +1323,28 @@ https://clojuredocs.org/clojure.core/partition-by
 ;; (("apple" "apricot") ("banana" "blueberry") ("cherry"))
 ```
 
+## parition
+
+`(partition n coll)`
+`(partition n step coll)`
+`(partition n step pad coll)`
+
+シーケンスを指定したサイズのサブシーケンスに分割する関数。
+一定のサイズに分割したい場合に使う。
+
+https://clojuredocs.org/clojure.core/partition
+
+
+```clojure
+(partition 2 [1 2 3 4 5 6])
+;; ((1 2) (3 4) (5 6))
+
+;; stepを指定する場合
+(partition 2 1 [1 2 3 4 5 6 7 8 9 10])
+;; ((1 2) (2 3) (3 4) (4 5) (5 6) (6 7) (7 8) (8 9) (9 10))
+
+;; パディングを指定する場合。不足している要素を埋めてくれる
+(partition 3 3 [0] [1 2 3 4 5])
+;; ((1 2 3) (4 5 0))
+```
 
