@@ -1280,5 +1280,25 @@ https://clojuredocs.org/clojure.core/map-indexed
 ;; (2 2 6 4 10)
 ```
 
+## drop
+
+`(drop n)`
+`(drop n coll)`
+
+シーケンスから指定した数の要素をとばして、残りのシーケンスを返す関数。
+
+https://clojuredocs.org/clojure.core/drop
+
+```clojure
+(drop 1 '(1 2 3 4 5))
+;; (2 3 4 5)
+
+(drop 1 [1 2 3 4 5])
+;; (2 3 4 5)
+
+;; ドロップ指定数がコレクションの長さを超える場合
+(drop 10 [1 2 3])
+;; ()
+```
 
 
