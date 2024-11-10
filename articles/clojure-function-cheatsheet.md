@@ -1361,3 +1361,25 @@ https://clojuredocs.org/clojure.core/flatten
 ;; (1 2 3 4 5 6)
 ```
 
+## re-find
+
+`(re-find m)`
+`(re-find re s)`
+
+正規表現パターンに一致する部分を検索する関数。
+一致する部分がある場合は最初の部分を、見つからなければnilを返す。
+
+https://clojuredocs.org/clojure.core/re-find
+
+```clojure
+(re-find #"foo" "foo bar baz")
+;; "foo"
+
+(re-find #"\d+" "The answer is 42")
+;; 42
+
+;; キャプチャグループにも対応している
+(re-find #"(\d+)-(\d+)" "Phone Number: 123-456")
+;; ["123-456" "123" "456"]
+```
+
