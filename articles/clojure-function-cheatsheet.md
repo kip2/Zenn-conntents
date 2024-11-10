@@ -1348,3 +1348,16 @@ https://clojuredocs.org/clojure.core/partition
 ;; ((1 2 3) (4 5 0))
 ```
 
+## flatten
+
+`(flatten x)`
+
+ネストされたコレクションを1次元に変換する関数。
+
+https://clojuredocs.org/clojure.core/flatten
+
+```clojure
+(flatten [1 [2 3] [4 [5 6]]])
+;; (1 2 3 4 5 6)
+```
+
