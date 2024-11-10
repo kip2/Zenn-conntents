@@ -1257,6 +1257,28 @@ https://clojuredocs.org/clojure.repl/apropos
 ;; (user/greet)
 ```
 
----
+## map-indexed
 
-and more...
+`(map-indexed f)`
+`(map-indexed f coll)`
+
+コレクション内の各要素にインデックスを付けて関数を適用する関数。
+pythonのenumerateのようなもの。
+
+https://clojuredocs.org/clojure.core/map-indexed
+
+```clojure
+(map-indexed (fn [idx val] [idx val]) ["a" "b" "c"])
+;; ([0 "a"] [1 "b"] [2 "c"])
+
+;; インデックスが偶数番目の要素を2倍にする
+(map-indexed (fn [idx val]
+               (if (even? idx)
+                 (* 2 val)
+                 val))
+             [1 2 3 4 5])
+;; (2 2 6 4 10)
+```
+
+
+
