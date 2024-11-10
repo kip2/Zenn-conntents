@@ -96,7 +96,7 @@ $ lein new clj-clip
 
 `project.clj`
 ```clojure
-(defproject clj-clip "0.1.0-SNAPSHOT"
+(defproject clj-clip "0.1.0"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
@@ -157,7 +157,7 @@ $ lein run
 `project.clj`の説明文とURLを変更する。
 
 ```clojure
-(defproject clj-clip "0.1.0-SNAPSHOT"
+(defproject clj-clip "0.1.0"
 ;;   :description "FIXME: write description" ; <= ここを変更
   :description "A simple library for handling the clipboard within the Clojure REPL."
 ;;   :url "http://example.com/FIXME" ; <= ここを変更
@@ -416,25 +416,24 @@ Javaのコードをそのまま直したので、Clojuraらしいコードには
 
 # ライブラリの使用
 
-さて、せっかくライブラリを作ったので、他のプロジェクトから使ってみよう。
+さて、作ったライブラリを他のプロジェクトから使ってみよう。
 
 ## ローカルリポジトリへの登録
 
-さて、まずはローカルリポジトリへの登録が必要らしい。
-登録していこう。
+使用するためにはローカルリポジトリへの登録が必要らしいので、登録していく。
 
 登録には`lein install`を使う。
-このコマンドを行うと、ローカルのMavenリポジトリにライブラリがインストールされ、他のプロジェクトでも使えるようになるとのこと。
+このコマンドを行うと、ローカルのMavenリポジトリにライブラリがインストールされ、他のプロジェクトでも使えるようになるらしい。
 
 ```sh
 $ lein install
-# Created /Users/clj-clip/target/clj-clip-0.1.0-SNAPSHOT.jar
+# Created /Users/clj-clip/target/clj-clip-0.1.0.jar
 # Wrote /Users/clj-clip/pom.xml
 # Installed jar and pom into local repo.
 ```
 
-ちなみに、ローカルのmavenリポジトリである`~/.m2/repository`に登録されるらしい。
-確かめてみよう。
+ローカルのmavenリポジトリである`~/.m2/repository`に登録されるとのこと。
+実際に確かめてみよう。
 
 ```sh
 $ ls ~/.m2/repository | grep clj-clip
@@ -449,10 +448,10 @@ $ clj-clip
 $ tree ~/.m2/repository/clj-clip
 /Users/.m2/repository/clj-clip
 └── clj-clip
-    ├── 0.1.0-SNAPSHOT
+    ├── 0.1.0
     │   ├── _remote.repositories
-    │   ├── clj-clip-0.1.0-SNAPSHOT.jar
-    │   ├── clj-clip-0.1.0-SNAPSHOT.pom
+    │   ├── clj-clip-0.1.0.jar
+    │   ├── clj-clip-0.1.0.pom
     │   └── maven-metadata-local.xml
     └── maven-metadata-local.xml
 
@@ -470,7 +469,7 @@ $ tree ~/.m2/repository/clj-clip
 
 ```clojure
 :dependencies [[org.clojure/clojure "1.11.1"]
-                [clj-clip "0.1.0-SNAPSHOT"]] ; <= これを追加
+                [clj-clip "0.1.0"]] ; <= これを追加
 ```
 
 あとは、実際に使用する側で読み込んで使うだけだ。
