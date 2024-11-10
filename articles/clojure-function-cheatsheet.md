@@ -1301,4 +1301,26 @@ https://clojuredocs.org/clojure.core/drop
 ;; ()
 ```
 
+## partition-by
+
+`(partition-by f)`
+`(partition-by f coll)`
+
+シーケンスを、関数の結果に基づいて分割する関する。
+関数の結果が変わるたびに新しいコレクションに分割される。
+
+https://clojuredocs.org/clojure.core/partition-by
+
+```clojure
+(partition-by identity [1 2 2 3 3 3 4 4 4 4])
+;; ((1) (2 2) (3 3 3) (4 4 4 4))
+
+;; 奇数・偶数で分割
+(partition-by even? [1 1 2 2 3 4 4 5 5 5 6 7])
+;; ((1 1) (2 2) (3) (4 4) (5 5 5) (6) (7))
+
+(partition-by #(first %) ["apple" "apricot" "banana" "blueberry" "cherry"])
+;; (("apple" "apricot") ("banana" "blueberry") ("cherry"))
+```
+
 
