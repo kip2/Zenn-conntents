@@ -1383,3 +1383,24 @@ https://clojuredocs.org/clojure.core/re-find
 ;; ["123-456" "123" "456"]
 ```
 
+## split
+
+`(split s re)`
+`(split s re limit)`
+
+文字列を指定した区切り文字（正規表現）で分割し、部分文字列のシーケンスを返す関数。
+
+https://clojuredocs.org/clojure.string/split
+
+```clojure
+;; import
+(require '[clojure.string :as str])
+
+(str/split "hello world clojure" #" ")
+;; ["hello" "world" "clojure"]
+
+;; 分割の回数上限を指定できる
+(str/split "one, two, three, four" #"," 2)
+;; ["one" " two, three, four"]
+```
+
