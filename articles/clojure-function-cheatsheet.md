@@ -1501,3 +1501,36 @@ https://clojuredocs.org/clojure.core/type
 (type john)
 ;; user.core.Person
 ```
+
+## instance?
+
+`(instance? c x)`
+
+オブジェクトが特定のクラスや型のインスタンスであるかを判定する関数。
+
+https://clojuredocs.org/clojure.core/instance_q
+
+```clojure
+(instance? String "Hello")
+;; true
+
+(instance? Integer 42)
+;; false
+(instance? Long 42)
+;; true
+
+(instance? Boolean true)
+;; true
+
+(instance? clojure.lang.PersistentVector [1 2 3])
+;; true
+
+;; 独自の型も調べることができる
+(defrecord Person [name age])
+
+(def john (->Person "John" 30))
+
+(instance? Person john)
+;; true
+```
+
