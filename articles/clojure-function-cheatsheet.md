@@ -1404,3 +1404,27 @@ https://clojuredocs.org/clojure.string/split
 ;; ["one" " two, three, four"]
 ```
 
+## defrecord
+
+`(defrecord name [& fields] & opts+specs)`
+
+レコードを定義するための構文。
+レコードとは、特定のフィールドを持つデータ構造。
+主に「値オブジェクト」の用途で使われる。
+
+https://clojuredocs.org/clojure.core/defrecord
+
+```clojure
+;;  Personという新しいデータ方を作成
+(defrecord Person [name age])
+
+;; Personレコードのインスタンスとしてjohnを作成
+(def john (->Person "John" 30))
+
+;; フィールドへのアクセス
+(:name john)
+;; John
+(:age john)
+;; 30
+```
+
