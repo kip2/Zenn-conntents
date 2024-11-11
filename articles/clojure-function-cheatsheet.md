@@ -1573,3 +1573,26 @@ https://clojuredocs.org/clojure.core/iterate
 ;; (1 -1 1 -1 1 -1)
 ```
 
+## take-while
+
+`(take-while pred)`
+`(take-while pred coll)`
+
+シーケンスの要素を条件にもとづいて取得するための関数。
+指定された条件がtrueである限り取得し続ける。
+
+https://clojuredocs.org/clojure.core/take-while
+
+```clojure
+(take-while #(< % 5) [1 2 3 4 5 6 7])
+;; (1 2 3 4)
+
+(take-while odd? [1 3 5 6 7 9])
+;; (1 3 5)
+
+;; 無限シーケンスでも使える
+(take-while #(< % 10) (iterate inc 1))
+;; (1 2 3 4 5 6 7 8 9)
+```
+
+
