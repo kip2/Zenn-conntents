@@ -1595,4 +1595,30 @@ https://clojuredocs.org/clojure.core/take-while
 ;; (1 2 3 4 5 6 7 8 9)
 ```
 
+## when
 
+`(when test & body)`
+
+条件が真である場合のみ式を評価するマクロ
+複数の式を実行できる。
+
+https://clojuredocs.org/clojure.core/when
+
+構文
+```clojure
+(when condition
+  expr1
+  expr2
+  ...)
+```
+
+```clojure
+(defn greet [name]
+  (when (not (empty? name))
+    (println "Hello, " name)
+    (str "Greetings, " name "!")))
+
+(greet "Alice")
+;; Hello,  Alice
+;; "Greetings, Alice!"
+```
