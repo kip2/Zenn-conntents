@@ -1601,6 +1601,7 @@ https://clojuredocs.org/clojure.core/take-while
 
 条件が真である場合のみ式を評価するマクロ
 複数の式を実行できる。
+なお、条件が偽の場合には何もしない。
 
 https://clojuredocs.org/clojure.core/when
 
