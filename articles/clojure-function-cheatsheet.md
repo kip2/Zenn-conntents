@@ -1466,3 +1466,38 @@ https://clojuredocs.org/clojure.core/defprotocol
 
 ```
 
+## type
+
+`(type x)`
+
+引数として与えたオブジェクトの型情報を取得するための関数。
+
+https://clojuredocs.org/clojure.core/type
+
+```clojure
+(type 42)
+;; java.lang.Long
+
+(type "hello")
+;; java.lang.String
+
+(type true)
+;; java.lang.Boolean
+
+(type [1 2 3])
+;; clojure.lang.PersistentVector
+
+(type '(1 2 3))
+;; clojure.lang.PersistentList
+
+(type {:a 1 :b 2})
+;; clojure.lang.PersistentArrayMap
+
+;; 独自の型も調べることができる
+(defrecord Person [name age])
+
+(def john (->Person "John" 30))
+
+(type john)
+;; user.core.Person
+```
