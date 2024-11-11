@@ -1534,3 +1534,26 @@ https://clojuredocs.org/clojure.core/instance_q
 ;; true
 ```
 
+## doall
+
+`(doall coll)`
+`(doall n coll)`
+
+遅延シーケンスを完全に評価するための関数。
+ファイル読み込みなどでは、遅延評価されると内容が変わる可能性があり、それを避けるために使うことがあるらしい。
+
+https://clojuredocs.org/clojure.core/doall
+
+```clojure
+(doall (map println [1 2 3 4]))
+; 1
+; 2
+; 3
+; 4
+;; (nil nil nil nil)
+
+;; ファイルを一度に善行読みこみ、ファイルが閉じられても参照できるようにする
+(with-open [rdr (clojure.java.io/reader "file.txt")]
+(doall (line-seq rdr)))
+```
+
