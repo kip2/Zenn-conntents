@@ -1428,3 +1428,41 @@ https://clojuredocs.org/clojure.core/defrecord
 ;; 30
 ```
 
+## defprotocol
+
+`(defprotocol name & opts+sigs)`
+
+インターフェース(プロトコル)を定義するための構文。
+メソッドを定義し、データ型に実装するための仕組みを提供する。
+Rustで言うところの`trait`のような機能と思われる。
+
+https://clojuredocs.org/clojure.core/defprotocol
+
+```clojure
+;; プロトコルの定義
+(defprotocol Greetable
+  (greet [this] "Returns a greeting message"))
+
+;; プロトコルの実装
+(defrecord Person [name]
+  Greetable
+  (greet [this] (str "Hello, my name is " name "!")))
+
+(def john (->Person "John"))
+
+;; Personレコードに実装されたgreetを使用するする。
+(greet john)
+;; "Hello, my name is John!"
+
+;; 別の型に対しても同様に定義する
+(defrecord Robot [id]
+  Greetable
+  (greet [this] (str "Beep boop, I am robot #" id ".")))
+
+(def robo (->Robot "robo"))
+
+(greet robo)
+;; "Beep boop, I am robot #robo."
+
+```
+
