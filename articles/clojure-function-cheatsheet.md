@@ -1557,3 +1557,19 @@ https://clojuredocs.org/clojure.core/doall
 (doall (line-seq rdr)))
 ```
 
+## iterate
+
+`(iterate f x)`
+
+初期値から初めて、指定された関数を何度も繰り返し適用し、無限に続く遅延シーケンスを生成する関数。
+
+https://clojuredocs.org/clojure.core/iterate
+
+```clojure
+(take 5 (iterate inc 0))
+;; (0 1 2 3 4)
+
+(take 6 (iterate #(- %) 1))
+;; (1 -1 1 -1 1 -1)
+```
+
