@@ -1623,3 +1623,23 @@ https://clojuredocs.org/clojure.core/when
 ;; Hello,  Alice
 ;; "Greetings, Alice!"
 ```
+
+## floor
+
+`(floor a)`
+
+指定した数値を切り捨てて最大の整数に変換する。
+要するに小数点以下を切り捨てる。
+
+https://clojuredocs.org/clojure.math/floor
+
+```clojure
+(Math/floor 4.2)
+;; 4.0
+
+;; 整数への変換
+(int (Math/floor 4.2))
+;; 4
+```
+
+
