@@ -1642,4 +1642,58 @@ https://clojuredocs.org/clojure.math/floor
 ;; 4
 ```
 
+## macroexpand
+
+`(macroexpand form)`
+
+マクロの展開を確認するための関数。
+マクロがどのように展開するかを確認できる。
+
+https://clojuredocs.org/clojure.core/macroexpand
+
+```clojure
+;; 独自マクロを定義
+(defmacro my-when [condition & body]
+  `(if ~condition
+     (do ~@body)))
+
+;; マクロを展開したコードがプリントされる
+(macroexpand '(my-when true (println "Hello, World!")))
+;; (if true (do (println "Hello, World!")))
+
+(defmacro my-unless [condition & body]
+  `(my-when (not ~condition)
+            ~@body))
+
+;; 複数段階あるマクロもすべて展開される
+(macroexpand '(my-unless false (println "Hello world!")))
+;; (if (clojure.core/not false) (do (println "Hello world!")))
+```
+
+## macroexpand-1
+
+`(macroexpand-1 form)`
+
+マクロの展開を確認するための関数。
+指定したマクロを1段階だけ展開する。
+
+https://clojuredocs.org/clojure.core/macroexpand-1
+
+```clojure
+(defmacro my-when [condition & body]
+  `(if ~condition
+     (do ~@body)))
+
+(defmacro my-unless [condition & body]
+  `(my-when (not ~condition)
+            ~@body))
+
+;; 1段階のみ展開される
+(macroexpand-1 '(my-unless false (println "Hello, World!")))
+;; (user.core/my-when (clojure.core/not false) (println "Hello, World!"))
+
+;; もう一段階展開して確認する
+(macroexpand-1 '(my-when (not false) (println "Hello, World!")))
+;; (if (not false) (do (println "Hello, World!")))
+```
 
