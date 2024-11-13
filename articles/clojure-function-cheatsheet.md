@@ -1648,6 +1648,8 @@ https://clojuredocs.org/clojure.math/floor
 
 マクロの展開を確認するための関数。
 マクロがどのように展開するかを確認できる。
+なお、引数はリストとして渡す必要がある。
+そうでない場合はカッコの中身が評価されてしまうため。
 
 https://clojuredocs.org/clojure.core/macroexpand
 
@@ -1676,6 +1678,8 @@ https://clojuredocs.org/clojure.core/macroexpand
 
 マクロの展開を確認するための関数。
 指定したマクロを1段階だけ展開する。
+なお、引数はリストとして渡す必要がある。
+そうでない場合はカッコの中身が評価されてしまうため。
 
 https://clojuredocs.org/clojure.core/macroexpand-1
 
