@@ -1729,3 +1729,28 @@ https://clojuredocs.org/clojure.core/defmacro
 ;; This will be printed.
 ;; So will this.
 ```
+
+## not=
+
+`(not= x)`
+`(not= x y)`
+`(not= x y & more)`
+
+値が等しくないかどうかを判定する。
+C言語やJavaScriptやJavaやRustなどでいう、`!=`と同じ働きをする。
+
+https://clojuredocs.org/clojure.core/not=
+
+```clojure
+(not= 1 2)
+;; true
+
+(not= 1 1)
+;; false
+
+(not= 1 2 3)
+;; true
+
+(not= 1 2 2)
+;; true
+```
