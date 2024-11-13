@@ -1754,3 +1754,28 @@ https://clojuredocs.org/clojure.core/not=
 (not= 1 2 2)
 ;; true
 ```
+
+## zero?
+
+`(zero? num)`
+
+数値がゼロであるかどうかを判定する関数。
+
+https://clojuredocs.org/clojure.core/zero_q
+
+```clojure
+(zero? 0)
+;; true
+(zero? 1)
+;; false
+(zero? -1)
+;; false
+
+(zero? 0.0)
+;; true
+(zero? 0N)
+;; true
+(zero? 0.0M)
+;; true
+
+```
