@@ -1670,6 +1670,12 @@ https://clojuredocs.org/clojure.core/macroexpand
 ;; 複数段階あるマクロもすべて展開される
 (macroexpand '(my-unless false (println "Hello world!")))
 ;; (if (clojure.core/not false) (do (println "Hello world!")))
+
+;; マクロであるwhenを展開した例
+(macroexpand
+ '(when true (println "True")
+        (println "Still true")))
+;; (if true (do (println "True") (println "Still true")))
 ```
 
 ## macroexpand-1
