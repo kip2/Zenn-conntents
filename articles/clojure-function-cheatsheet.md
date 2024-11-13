@@ -1697,3 +1697,25 @@ https://clojuredocs.org/clojure.core/macroexpand-1
 ;; (if (not false) (do (println "Hello, World!")))
 ```
 
+## defmacro
+
+`(defmacro name doc-string? attr-map? [params*] body)`
+`(defmacro name doc-string? attr-map? ([params*] body) + attr-map?)`
+
+マクロを定義するための構文。
+マクロは、実行時ではなく、コンパイル時にコードが生成される機能。
+煩雑な記法を簡略化する場合などに使われる。
+
+https://clojuredocs.org/clojure.core/defmacro
+
+```clojure
+(defmacro my-when [condition & body]
+  `(if ~condition
+     (do ~@body)))
+
+(my-when true
+    (println "This will be printed.")
+    (println "So will this."))
+;; This will be printed.
+;; So will this.
+```
