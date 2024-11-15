@@ -1779,3 +1779,33 @@ https://clojuredocs.org/clojure.core/zero_q
 ;; true
 
 ```
+
+## pst
+
+`(pst)`
+`(pst e-or-depth)`
+`(pst e depth)`
+
+エラースタックトレースを表示する関数。
+`clojure.repl`の読み込みが必要。
+
+https://clojuredocs.org/clojure.repl/pst
+
+```clojure
+;; import
+(require '[clojure.repl :refer [pst]])
+
+(try
+  (/ 1 0)
+  (catch Exception e
+    (pst e)))
+  ; 
+; ArithmeticException Divide by zero
+; 
+; 	clojure.lang.Numbers.divide (Numbers.java:190)
+; 
+; 	clojure.lang.Numbers.divide (Numbers.java:3911)
+; 
+;; 以下略
+```
+
