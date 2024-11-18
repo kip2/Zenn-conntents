@@ -1809,3 +1809,24 @@ https://clojuredocs.org/clojure.repl/pst
 ;; 以下略
 ```
 
+## with-out-str
+
+`(with-out-str & body)`
+
+出力を文字列としてキャプチャするためのマクロ。
+標準出力に出力されるデータを文字列として取り込めるので、`print`や`println`の結果を再利用できる。
+また、標準出力を用いるテストなどにも使用できる。
+
+https://clojuredocs.org/clojure.core/with-out-str
+
+```clojure
+(with-out-str
+  (println "Hello, Clojure!")
+  (println "This is test sentence."))
+;; "Hello, Clojure!\nThis is test sentence.\n"
+
+;; テストケースの場合。
+
+```
+
+
