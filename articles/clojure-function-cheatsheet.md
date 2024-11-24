@@ -1851,3 +1851,34 @@ https://clojuredocs.org/clojure.core/repeat
 ;; ([1 2 3] [1 2 3] [1 2 3])
 ```
 
+## repeatedly
+
+`(repeatedly f)`
+`(repeatedly n f)`
+
+指定した関数を繰り返し呼び出して得られる結果を生成する関数。
+遅延シーケンスを返す。
+`repeat`とは対象が関数であるか、要素であるか、といった違いがある。
+
+https://clojuredocs.org/clojure.core/repeatedly
+
+```clojure
+(take 10 (repeatedly #(range 1 3)))
+;; ((1 2) (1 2) (1 2) (1 2) (1 2) (1 2) (1 2) (1 2) (1 2) (1 2))
+
+
+(def random-seq (repeatedly #(rand-int 10)))
+(take 5 random-seq)
+;; (5 5 8 4 0)
+
+(repeatedly 3 (fn [] "Hello"))
+;; ("Hello" "Hello" "Hello")
+
+;; ランダムな英文字の生成
+(defn random-alphabet []
+  (char (+ (rand-int 26) 65)))
+
+(take 10 (repeatedly random-alphabet))
+;; (\I \H \W \T \J \Z \U \K \T \O)
+```
+
