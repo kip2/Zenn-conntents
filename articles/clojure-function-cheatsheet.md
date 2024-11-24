@@ -1829,4 +1829,25 @@ https://clojuredocs.org/clojure.core/with-out-str
 
 ```
 
+## repeat
+
+`(repeat x)`
+`(repeat n x)`
+
+指定された要素を繰り返し生成するための関数。
+
+https://clojuredocs.org/clojure.core/repeat
+
+```clojure
+(repeat 3 "A")
+;; ("A" "A" "A")
+
+;; 数値の指定がない場合は無限シーケンスを生成する
+(take 5 (repeat "A"))
+;; ("A" "A" "A" "A" "A") 
+
+;; リストやベクタなどのコレクションも生成可能
+(repeat 3 [1 2 3])
+;; ([1 2 3] [1 2 3] [1 2 3])
+```
 
