@@ -509,6 +509,10 @@ $ lein classpath
 (println (clip/read-clip))
 ```
 
+:::message
+Calva使用中に読み込めないときは、一度REPLを立ち上げ直すと読み込めることがあります。
+:::
+
 # ライブラリのデプロイ
 
 せっかくなので、つくったライブラリをClojarsにデプロイしてみよう。
