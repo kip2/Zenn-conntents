@@ -486,6 +486,15 @@ $ tree ~/.m2/repository/clj-clip
                 [clj-clip "0.1.0"]] ; <= これを追加
 ```
 
+それからleiningenに読み込ませる。
+
+```sh
+$ lein deps
+
+# ちゃんと読み込まれたかは以下のコマンドでわかる
+$ lein classpath
+```
+
 あとは、実際に使用する側で読み込んで使うだけだ。
 
 ```clojure
