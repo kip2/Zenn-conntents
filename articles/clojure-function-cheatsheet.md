@@ -1882,3 +1882,26 @@ https://clojuredocs.org/clojure.core/repeatedly
 ;; (\I \H \W \T \J \Z \U \K \T \O)
 ```
 
+## spit
+
+`(spit f content & options)`
+
+ファイルにデータを書き込む関数。
+
+https://clojuredocs.org/clojure.core/spit
+
+```clojure
+(spit "example.txt" "Hello, Clojure!")
+
+;; 追記する場合は :append をtrueにする
+(spit "example.txt" "\nThis is a new line" :append true)
+
+;; エンコーディングの指定
+(spit "example-utf16.txt" "こんにちは" :encoding "UTF-16")
+
+;; 文字列でないデータを渡すと文字列に変換する
+(spit "example.txt" {:name "Clojure" :age 17})
+;; 保存イメージ
+;; {:name "Clojure", :age 17}
+```
+
