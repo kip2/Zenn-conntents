@@ -1905,3 +1905,42 @@ https://clojuredocs.org/clojure.core/spit
 ;; {:name "Clojure", :age 17}
 ```
 
+## require
+
+`(require & args)`
+
+別の名前空間の関数や変数を、現在の名前空間にロードする関数。
+REPLとプロジェクトで使用する場合に記法が違うことに注意する。
+
+https://clojuredocs.org/clojure.core/require
+
+```clojure
+;; プロジェクトの中で使用する場合
+(ns a-project.core
+  (:require clojure.string))
+(clojure.string/join "," ["a" "b" "c"])
+;; "a,b,c"
+
+;; エイリアスの利用
+(ns a-project.core
+  (:require [clojure.string :as str]))
+(str/join "," ["a" "b" "c"])
+;; "a,b,c"
+
+;; 特定の関数や変数のみのインポート
+(ns a-project.core
+  (:require [clojure.string :refer [join]]))
+(join "," ["a" "b" "c"])
+;; "a,b,c"
+
+;; すべての関数や変数をインポート
+(ns a-project.core
+  (:require [clojure.string :refer :all]))
+(join "," ["a" "b" "c"])
+;; "a,b,c"
+
+;; REPLでの動的な使用
+(require '[clojure.string :as str])
+(str/join "," ["a" "b" "c"])
+;; "a,b,c"
+```
