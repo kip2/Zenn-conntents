@@ -2175,3 +2175,36 @@ https://clojuredocs.org/clojure.core/with-open
 (with-open [wtr (io/writer "example.txt")]
   (.write wtr "Hello, world!\n"))
 ```
+
+## doseq
+
+`(doseq seq-exprs & body)`
+
+反復処理をするマクロ。
+各アイテムに対して、副作用を伴う操作を行うために使う。
+
+https://clojuredocs.org/clojure.core/doseq
+
+```clojure
+(doseq [i (range 5)]
+  (println "Number:" i))
+; Number: 0
+; Number: 1
+; Number: 2
+; Number: 3
+; Number: 4)
+
+;; 複数のコレクションに対しても同様に実行できる。
+(doseq [x [1 2 3]
+        y ["a" "b" "c"]]
+  (println x y))
+; 1 a
+; 1 b
+; 1 c
+; 2 a
+; 2 b
+; 2 c
+; 3 a
+; 3 b
+; 3 c
+```
