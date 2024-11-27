@@ -11,6 +11,7 @@ Clojureで知った関数・マクロをまとめる。
 
 なお、記事の項目はアルファベット順になっている。
 
+
 ## abs
 
 `(abs a)`
@@ -32,6 +33,7 @@ https://clojuredocs.org/clojure.core/abs
 (abs nil)
 ;; NullPointerException
 ```
+
 
 
 ## apropos
@@ -65,6 +67,7 @@ https://clojuredocs.org/clojure.repl/apropos
 (apropos "greet")
 ;; (user/greet)
 ```
+
 
 
 ## assoc
@@ -104,6 +107,7 @@ https://clojuredocs.org/clojure.core/assoc
 (assoc v-map 99 30)
 ;; Execution error (IndexOutOfBoundsException) 
 ```
+
 
 
 ## atom
@@ -147,6 +151,7 @@ https://clojuredocs.org/clojure.core/atom
 https://japan-clojurians.github.io/clojure-site-ja/reference/atoms
 
 
+
 ## comp
 
 `(comp)`
@@ -187,6 +192,7 @@ https://clojuredocs.org/clojure.core/comp
 ```
 
 
+
 ## compare
 
 `(compare x y)`
@@ -219,6 +225,7 @@ https://clojuredocs.org/clojure.core/compare
 ```
 
 
+
 ## cons
 
 `(cons x seq)`
@@ -240,6 +247,7 @@ https://clojuredocs.org/clojure.core/cons
 (cons "a" nil)
 ;; ("a")
 ```
+
 
 
 ## defmacro
@@ -264,6 +272,7 @@ https://clojuredocs.org/clojure.core/defmacro
 ;; This will be printed.
 ;; So will this.
 ```
+
 
 
 ## defn-
@@ -307,6 +316,7 @@ https://clojuredocs.org/clojure.core/defmacro
 https://clojuredocs.org/clojure.core/defn-
 
 
+
 ## defonce
 
 `(defonce name expr)`
@@ -333,6 +343,7 @@ https://clojuredocs.org/clojure.core/defonce
 (defn increment-counter []
     (swap! counter inc))
 ```
+
 
 
 ## defprotocol
@@ -374,6 +385,7 @@ https://clojuredocs.org/clojure.core/defprotocol
 ```
 
 
+
 ## defrecord
 
 `(defrecord name [& fields] & opts+specs)`
@@ -399,6 +411,7 @@ https://clojuredocs.org/clojure.core/defrecord
 ```
 
 
+
 ## doall
 
 `(doall coll)`
@@ -421,6 +434,7 @@ https://clojuredocs.org/clojure.core/doall
 (with-open [rdr (clojure.java.io/reader "file.txt")]
 (doall (line-seq rdr)))
 ```
+
 
 
 ## doc
@@ -450,6 +464,7 @@ https://clojuredocs.org/clojure.repl/doc
 ```
 
 
+
 ## drop
 
 `(drop n)`
@@ -470,6 +485,7 @@ https://clojuredocs.org/clojure.core/drop
 (drop 10 [1 2 3])
 ;; ()
 ```
+
 
 
 ## every?
@@ -497,6 +513,7 @@ https://clojuredocs.org/clojure.core/every_q
 ```
 
 
+
 ## filter
 
 `(filter pred)`
@@ -522,6 +539,7 @@ https://clojuredocs.org/clojure.core/filter
 ```
 
 
+
 ## find-doc
 
 `(find-doc re-string-or-pattern)`
@@ -540,6 +558,7 @@ https://clojuredocs.org/clojure.repl/find-doc
 ```
 
 
+
 ## flatten
 
 `(flatten x)`
@@ -552,6 +571,7 @@ https://clojuredocs.org/clojure.core/flatten
 (flatten [1 [2 3] [4 [5 6]]])
 ;; (1 2 3 4 5 6)
 ```
+
 
 
 ## floor
@@ -571,6 +591,7 @@ https://clojuredocs.org/clojure.math/floor
 (int (Math/floor 4.2))
 ;; 4
 ```
+
 
 
 ## for
@@ -631,6 +652,7 @@ forは内容を掴みづらいので問題を書いておく。
 - 1から5までの数をxとyとzに格納し、x + y + z = 6になる組み合わせを、`[x y z]`の形式で生成する。
 
 
+
 ## get-in
 
 `(get-in m ks)`
@@ -670,6 +692,7 @@ https://clojuredocs.org/clojure.core/get-in
 ```
 
 
+
 ## identity
 
 `(identity x)`
@@ -696,6 +719,7 @@ https://clojuredocs.org/clojure.core/identity
 (filter identity [1 nil 2 false 3])
 ;; (1 2 3)
 ```
+
 
 
 ## instance?
@@ -729,6 +753,7 @@ https://clojuredocs.org/clojure.core/instance_q
 (instance? Person john)
 ;; true
 ```
+
 
 
 ## into
@@ -771,6 +796,7 @@ https://clojuredocs.org/clojure.core/into
 ```
 
 
+
 ## iterate
 
 `(iterate f x)`
@@ -786,6 +812,7 @@ https://clojuredocs.org/clojure.core/iterate
 (take 6 (iterate #(- %) 1))
 ;; (1 -1 1 -1 1 -1)
 ```
+
 
 
 ## last
@@ -808,6 +835,7 @@ https://clojuredocs.org/clojure.core/last
 (last '())
 ;; nil
 ```
+
 
 
 ## letfn
@@ -847,6 +875,7 @@ https://clojuredocs.org/clojure.core/letfn
 ```
 
 
+
 ## list*
 
 `(list* args)`
@@ -880,6 +909,7 @@ https://clojuredocs.org/clojure.core/list*
 ```
 
 
+
 ## loop
 
 `(loop [bindings*] exprs*)`
@@ -904,6 +934,7 @@ https://clojuredocs.org/clojure.core/loop
     sum
     (recur (inc n) (+ sum n))))
 ```
+
 
 
 ## macroexpand
@@ -943,6 +974,7 @@ https://clojuredocs.org/clojure.core/macroexpand
 ```
 
 
+
 ## macroexpand-1
 
 `(macroexpand-1 form)`
@@ -971,6 +1003,7 @@ https://clojuredocs.org/clojure.core/macroexpand-1
 (macroexpand-1 '(my-when (not false) (println "Hello, World!")))
 ;; (if (not false) (do (println "Hello, World!")))
 ```
+
 
 
 ## map
@@ -1002,6 +1035,7 @@ https://clojuredocs.org/clojure.core/map
 ```
 
 
+
 ## map-indexed
 
 `(map-indexed f)`
@@ -1024,6 +1058,7 @@ https://clojuredocs.org/clojure.core/map-indexed
              [1 2 3 4 5])
 ;; (2 2 6 4 10)
 ```
+
 
 
 ## mapv
@@ -1049,6 +1084,7 @@ https://clojuredocs.org/clojure.core/mapv
 ;; mapvは即時評価なので、無限シーケンスは扱えない。
 ;; (take 5 (mapv #(* 2 %) (range)))
 ```
+
 
 
 ## meta
@@ -1100,6 +1136,7 @@ myvar
 https://clojuredocs.org/clojure.core/meta
 
 
+
 ## neg?
 
 `(neg? num)`
@@ -1119,6 +1156,7 @@ https://clojuredocs.org/clojure.core/neg_q
 (neg? 0)
 ;; false
 ```
+
 
 
 ## not-any?
@@ -1150,6 +1188,7 @@ https://clojuredocs.org/clojure.core/not-any_q
 ```
 
 
+
 ## not-every?
 
 `(not-every? pred coll)`
@@ -1171,6 +1210,7 @@ https://clojuredocs.org/clojure.core/not-every_q
 (not-every? even? [])
 ;; false
 ```
+
 
 
 ## not=
@@ -1199,6 +1239,7 @@ https://clojuredocs.org/clojure.core/not=
 ```
 
 
+
 ## parition
 
 `(partition n coll)`
@@ -1225,6 +1266,7 @@ https://clojuredocs.org/clojure.core/partition
 ```
 
 
+
 ## partition-by
 
 `(partition-by f)`
@@ -1246,6 +1288,7 @@ https://clojuredocs.org/clojure.core/partition-by
 (partition-by #(first %) ["apple" "apricot" "banana" "blueberry" "cherry"])
 ;; (("apple" "apricot") ("banana" "blueberry") ("cherry"))
 ```
+
 
 
 ## prn
@@ -1288,6 +1331,7 @@ printlnとの違いは
 ```
 
 
+
 ## pst
 
 `(pst)`
@@ -1317,6 +1361,55 @@ https://clojuredocs.org/clojure.repl/pst
 ;; 以下略
 ```
 
+## rand
+
+`(rand)`
+`(rand n)`
+
+ランダムな少数を生成する関数。
+
+https://clojuredocs.org/clojure.core/rand
+
+```clojure
+;; 毎回違う結果の少数を生成
+;; 0.0 〜 1.0
+(rand)
+;; 0.27664731043774426 <= 一例
+
+;; nを指定できる
+;; 0.0 〜 n (例では10.0が最大)
+(rand 10)
+;; 2.7176732712185747 <= 一例
+
+;; 整数のランダム数が必要ならintを使う(もしくはrand-int）。
+(int (rand 10))
+;; 8 <= 一例
+
+;; a以上、b未満なら以下のようにする。
+(def a 10)
+(def b 20)
+(+ a (rand (- b a)))
+;; 13.421563483733273 <= 一例
+```
+
+
+## rand-int
+
+`(rand-int n)`
+
+指定した範囲内のランダムな整数を生成するための関数。
+0以上n未満の整数が返ってくる。
+
+https://clojuredocs.org/clojure.core/rand-int
+
+```clojure
+;; 0以上10未満
+(rand-int 10)
+
+;; 1以上なら調整がいる。
+;; 1以上、10未満
+(+ 1 (rand-int 10))
+```
 
 ## range
 
@@ -1347,6 +1440,7 @@ https://clojuredocs.org/clojure.core/range
 ```
 
 
+
 ## re-find
 
 `(re-find m)`
@@ -1368,6 +1462,7 @@ https://clojuredocs.org/clojure.core/re-find
 (re-find #"(\d+)-(\d+)" "Phone Number: 123-456")
 ;; ["123-456" "123" "456"]
 ```
+
 
 
 ## recur
@@ -1410,6 +1505,7 @@ https://clojuredocs.org/clojure.core/recur
 ```
 
 
+
 ## reduce
 
 `(reduce f coll)`
@@ -1442,6 +1538,7 @@ https://clojuredocs.org/clojure.core/reduce
 ```
 
 
+
 ## repeat
 
 `(repeat x)`
@@ -1463,6 +1560,7 @@ https://clojuredocs.org/clojure.core/repeat
 (repeat 3 [1 2 3])
 ;; ([1 2 3] [1 2 3] [1 2 3])
 ```
+
 
 
 ## repeatedly
@@ -1495,6 +1593,7 @@ https://clojuredocs.org/clojure.core/repeatedly
 (take 10 (repeatedly random-alphabet))
 ;; (\I \H \W \T \J \Z \U \K \T \O)
 ```
+
 
 
 ## require
@@ -1558,6 +1657,7 @@ clojure.string
 なお、`ns`の場合は`ns`側で適切に扱われるため、シングルクォートは不要となっている。
 :::
 
+
 ## rest
 
 `(rest coll)`
@@ -1606,6 +1706,7 @@ https://clojuredocs.org/clojure.core/rest
 :::
 
 
+
 ## slurp
 
 `(slurp f & opts)`
@@ -1626,6 +1727,7 @@ https://clojuredocs.org/clojure.core/slurp
 (with-open [rdr (java.io.InputStreamReader. (java.io.FileInputStream. "read-file.txt"))]
     (slurp rdr))
 ```
+
 
 
 ## some
@@ -1654,6 +1756,7 @@ https://clojuredocs.org/clojure.core/some
 ```
 
 
+
 ## sort
 
 `(sort coll)`
@@ -1676,6 +1779,7 @@ https://clojuredocs.org/clojure.core/sort
 (sort #(> (count %1) (count %2)) ["apple" "orange" "banana" "grape"])
 ;; ("orange" "banana" "apple" "grape")
 ```
+
 
 
 ## sort-by
@@ -1705,6 +1809,7 @@ https://clojuredocs.org/clojure.core/sort-by
 ```
 
 
+
 ## source
 
 `(source n)`
@@ -1724,6 +1829,7 @@ https://clojuredocs.org/clojure.repl/source
 
 (source cons)
 ```
+
 
 
 ## spit
@@ -1750,6 +1856,7 @@ https://clojuredocs.org/clojure.core/spit
 ```
 
 
+
 ## split
 
 `(split s re)`
@@ -1772,6 +1879,7 @@ https://clojuredocs.org/clojure.string/split
 ```
 
 
+
 ## subs
 
 `(subs s start)`
@@ -1790,6 +1898,7 @@ https://clojuredocs.org/clojure.core/subs
 (subs "Clojure" 2 5)
 ;; "oju"
 ```
+
 
 
 ## take
@@ -1819,6 +1928,7 @@ https://clojuredocs.org/clojure.core/take
 ```
 
 
+
 ## take-while
 
 `(take-while pred)`
@@ -1840,6 +1950,7 @@ https://clojuredocs.org/clojure.core/take-while
 (take-while #(< % 10) (iterate inc 1))
 ;; (1 2 3 4 5 6 7 8 9)
 ```
+
 
 
 ## threading-last-macro
@@ -1874,6 +1985,7 @@ https://clojure.org/guides/threading_macros
 ```
 
 
+
 ## threading-macro
 
 `->`
@@ -1897,6 +2009,7 @@ https://clojure.org/guides/threading_macros
 (str (clojure.string/upper-case (clojure.string/trim text)) "!!!")
 ;; "HELLO WORLD!!!"
 ```
+
 
 
 ## type
@@ -1936,6 +2049,7 @@ https://clojuredocs.org/clojure.core/type
 ```
 
 
+
 ## use-fixtures
 
 clojure.testが提供するマクロ。
@@ -1959,6 +2073,7 @@ https://clojuredocs.org/clojure.test/use-fixtures
       (finally
         (stop-server)))))
 ```
+
 
 
 ## when
@@ -1991,6 +2106,7 @@ https://clojuredocs.org/clojure.core/when
 ```
 
 
+
 ## with-out-str
 
 `(with-out-str & body)`
@@ -2010,6 +2126,7 @@ https://clojuredocs.org/clojure.core/with-out-str
 ;; テストケースの場合。
 
 ```
+
 
 
 ## zero?
@@ -2035,54 +2152,5 @@ https://clojuredocs.org/clojure.core/zero_q
 (zero? 0.0M)
 ;; true
 
-```
-
-## rand
-
-`(rand)`
-`(rand n)`
-
-ランダムな少数を生成する関数。
-
-https://clojuredocs.org/clojure.core/rand
-
-```clojure
-;; 毎回違う結果の少数を生成
-;; 0.0 〜 1.0
-(rand)
-;; 0.27664731043774426 <= 一例
-
-;; nを指定できる
-;; 0.0 〜 n (例では10.0が最大)
-(rand 10)
-;; 2.7176732712185747 <= 一例
-
-;; 整数のランダム数が必要ならintを使う(もしくはrand-int）。
-(int (rand 10))
-;; 8 <= 一例
-
-;; a以上、b未満なら以下のようにする。
-(def a 10)
-(def b 20)
-(+ a (rand (- b a)))
-;; 13.421563483733273 <= 一例
-```
-
-## rand-int
-
-`(rand-int n)`
-
-指定した範囲内のランダムな整数を生成するための関数。
-0以上n未満の整数が返ってくる。
-
-https://clojuredocs.org/clojure.core/rand-int
-
-```clojure
-;; 0以上10未満
-(rand-int 10)
-
-;; 1以上なら調整がいる。
-;; 1以上、10未満
-(+ 1 (rand-int 10))
 ```
 
