@@ -2154,3 +2154,24 @@ https://clojuredocs.org/clojure.core/zero_q
 
 ```
 
+## with-open
+
+`(with-open bindings & body)`
+
+ファイル等のリソースを開いたときに、確実に閉じるために使用するマクロ。
+pythonで言うところのwith文のようなもの。
+
+https://clojuredocs.org/clojure.core/with-open
+
+```clojure
+(require '[clojure.java.io :as io])
+
+;; ファイルからの読み込み時
+(with-open [rdr (io/reader "example.txt")]
+  (doseq [line (line-seq rdr)]
+    (println line)))
+
+;; ファイルへの書き込み時
+(with-open [wtr (io/writer "example.txt")]
+  (.write wtr "Hello, world!\n"))
+```
