@@ -1944,3 +1944,22 @@ https://clojuredocs.org/clojure.core/require
 (str/join "," ["a" "b" "c"])
 ;; "a,b,c"
 ```
+
+:::message
+なぜREPLだとシングルクォートがいるのかというと、`require`関数に渡す際には評価しないように渡す必要があるから。
+シングルクォートをつけないと、シンボルとして解釈されてしまうので、シングルクォートをつけて、データとして扱うように指示する必要がある。
+
+```clojure
+;; clojure.coreのシンボルはロードされた名前空間なので問題なく処理される。
++
+;; #function[clojure.core/+]
+
+;; ロードされていないシンボルは、名前空間にないので、NotFoundExceptionとなってしまう。
+clojure.string
+; Syntax error (ClassNotFoundException) compiling at (src/core.clj:1:8697).
+```
+
+上記例の様に、ロードされたシンボルかを評価してしまうため、それを避けるためにシングルクォートをつける。
+
+なお、`ns`の場合は`ns`側で適切に扱われるため、シングルクォートは不要となっている。
+:::
