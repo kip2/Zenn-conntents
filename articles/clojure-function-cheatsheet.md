@@ -13,6 +13,7 @@ Clojureで知った関数・マクロをまとめる。
 
 
 
+
 ## abs
 
 `(abs a)`
@@ -34,6 +35,7 @@ https://clojuredocs.org/clojure.core/abs
 (abs nil)
 ;; NullPointerException
 ```
+
 
 
 
@@ -69,6 +71,7 @@ https://clojuredocs.org/clojure.repl/apropos
 (apropos "greet")
 ;; (user/greet)
 ```
+
 
 
 
@@ -110,6 +113,7 @@ https://clojuredocs.org/clojure.core/assoc
 (assoc v-map 99 30)
 ;; Execution error (IndexOutOfBoundsException) 
 ```
+
 
 
 
@@ -157,6 +161,7 @@ https://japan-clojurians.github.io/clojure-site-ja/reference/atoms
 
 
 
+
 ## comp
 
 `(comp)`
@@ -199,6 +204,7 @@ https://clojuredocs.org/clojure.core/comp
 
 
 
+
 ## compare
 
 `(compare x y)`
@@ -233,6 +239,7 @@ https://clojuredocs.org/clojure.core/compare
 
 
 
+
 ## cons
 
 `(cons x seq)`
@@ -254,6 +261,7 @@ https://clojuredocs.org/clojure.core/cons
 (cons "a" nil)
 ;; ("a")
 ```
+
 
 
 
@@ -280,6 +288,7 @@ https://clojuredocs.org/clojure.core/defmacro
 ;; This will be printed.
 ;; So will this.
 ```
+
 
 
 
@@ -327,6 +336,7 @@ https://clojuredocs.org/clojure.core/defn-
 
 
 
+
 ## defonce
 
 `(defonce name expr)`
@@ -353,6 +363,7 @@ https://clojuredocs.org/clojure.core/defonce
 (defn increment-counter []
     (swap! counter inc))
 ```
+
 
 
 
@@ -398,6 +409,7 @@ https://clojuredocs.org/clojure.core/defprotocol
 
 
 
+
 ## defrecord
 
 `(defrecord name [& fields] & opts+specs)`
@@ -421,6 +433,7 @@ https://clojuredocs.org/clojure.core/defrecord
 (:age john)
 ;; 30
 ```
+
 
 
 
@@ -451,6 +464,7 @@ https://clojuredocs.org/clojure.core/doall
 
 
 
+
 ## doc
 
 `(doc name)`
@@ -476,6 +490,7 @@ https://clojuredocs.org/clojure.repl/doc
 ;   takes a name retruens a greeting string.
 
 ```
+
 
 
 
@@ -513,6 +528,7 @@ https://clojuredocs.org/clojure.core/doseq
 ; 3 c
 ```
 
+
 ## drop
 
 `(drop n)`
@@ -533,6 +549,7 @@ https://clojuredocs.org/clojure.core/drop
 (drop 10 [1 2 3])
 ;; ()
 ```
+
 
 
 
@@ -564,6 +581,7 @@ https://clojuredocs.org/clojure.core/every_q
 
 
 
+
 ## filter
 
 `(filter pred)`
@@ -591,6 +609,7 @@ https://clojuredocs.org/clojure.core/filter
 
 
 
+
 ## find-doc
 
 `(find-doc re-string-or-pattern)`
@@ -611,6 +630,7 @@ https://clojuredocs.org/clojure.repl/find-doc
 
 
 
+
 ## flatten
 
 `(flatten x)`
@@ -623,6 +643,7 @@ https://clojuredocs.org/clojure.core/flatten
 (flatten [1 [2 3] [4 [5 6]]])
 ;; (1 2 3 4 5 6)
 ```
+
 
 
 
@@ -644,6 +665,7 @@ https://clojuredocs.org/clojure.math/floor
 (int (Math/floor 4.2))
 ;; 4
 ```
+
 
 
 
@@ -708,6 +730,7 @@ forは内容を掴みづらいので問題を書いておく。
 
 
 
+
 ## get-in
 
 `(get-in m ks)`
@@ -749,6 +772,7 @@ https://clojuredocs.org/clojure.core/get-in
 
 
 
+
 ## identity
 
 `(identity x)`
@@ -775,6 +799,7 @@ https://clojuredocs.org/clojure.core/identity
 (filter identity [1 nil 2 false 3])
 ;; (1 2 3)
 ```
+
 
 
 
@@ -810,6 +835,7 @@ https://clojuredocs.org/clojure.core/instance_q
 (instance? Person john)
 ;; true
 ```
+
 
 
 
@@ -856,6 +882,7 @@ https://clojuredocs.org/clojure.core/into
 
 
 
+
 ## iterate
 
 `(iterate f x)`
@@ -871,6 +898,7 @@ https://clojuredocs.org/clojure.core/iterate
 (take 6 (iterate #(- %) 1))
 ;; (1 -1 1 -1 1 -1)
 ```
+
 
 
 
@@ -895,6 +923,7 @@ https://clojuredocs.org/clojure.core/last
 (last '())
 ;; nil
 ```
+
 
 
 
@@ -938,6 +967,32 @@ https://clojuredocs.org/clojure.core/letfn
 
 
 
+
+## line-seq
+
+`(line-seq rdr)`
+
+`java.io.BufferedReader`から行ごとの遅延シーケンスを生成するための関数。
+遅延シーケンスを返す。
+なお、リーダーオブジェクトが消費されるため、同じリーダーでの読み取りはできない。
+
+https://clojuredocs.org/clojure.core/line-seq
+
+```clojure
+(require '[clojure.java.io :as io])
+
+;; ファイルからの読み込み時に使用する
+(with-open [rdr (io/reader "example.txt")]
+  (doseq [line (line-seq rdr)]
+    (println line)))
+
+;; doallを使って、強制的にリストにすることも可能
+(with-open [rdr (io/reader "example.txt")]
+  (doseq [lines (doall (line-seq rdr))]
+    (println lines)))
+
+```
+
 ## list*
 
 `(list* args)`
@@ -973,6 +1028,7 @@ https://clojuredocs.org/clojure.core/list*
 
 
 
+
 ## loop
 
 `(loop [bindings*] exprs*)`
@@ -997,6 +1053,7 @@ https://clojuredocs.org/clojure.core/loop
     sum
     (recur (inc n) (+ sum n))))
 ```
+
 
 
 
@@ -1040,6 +1097,7 @@ https://clojuredocs.org/clojure.core/macroexpand
 
 
 
+
 ## macroexpand-1
 
 `(macroexpand-1 form)`
@@ -1068,6 +1126,7 @@ https://clojuredocs.org/clojure.core/macroexpand-1
 (macroexpand-1 '(my-when (not false) (println "Hello, World!")))
 ;; (if (not false) (do (println "Hello, World!")))
 ```
+
 
 
 
@@ -1103,6 +1162,7 @@ https://clojuredocs.org/clojure.core/map
 
 
 
+
 ## map-indexed
 
 `(map-indexed f)`
@@ -1125,6 +1185,7 @@ https://clojuredocs.org/clojure.core/map-indexed
              [1 2 3 4 5])
 ;; (2 2 6 4 10)
 ```
+
 
 
 
@@ -1152,6 +1213,7 @@ https://clojuredocs.org/clojure.core/mapv
 ;; mapvは即時評価なので、無限シーケンスは扱えない。
 ;; (take 5 (mapv #(* 2 %) (range)))
 ```
+
 
 
 
@@ -1207,6 +1269,7 @@ https://clojuredocs.org/clojure.core/meta
 
 
 
+
 ## neg?
 
 `(neg? num)`
@@ -1226,6 +1289,7 @@ https://clojuredocs.org/clojure.core/neg_q
 (neg? 0)
 ;; false
 ```
+
 
 
 
@@ -1261,6 +1325,7 @@ https://clojuredocs.org/clojure.core/not-any_q
 
 
 
+
 ## not-every?
 
 `(not-every? pred coll)`
@@ -1282,6 +1347,7 @@ https://clojuredocs.org/clojure.core/not-every_q
 (not-every? even? [])
 ;; false
 ```
+
 
 
 
@@ -1314,6 +1380,7 @@ https://clojuredocs.org/clojure.core/not=
 
 
 
+
 ## parition
 
 `(partition n coll)`
@@ -1342,6 +1409,7 @@ https://clojuredocs.org/clojure.core/partition
 
 
 
+
 ## partition-by
 
 `(partition-by f)`
@@ -1363,6 +1431,7 @@ https://clojuredocs.org/clojure.core/partition-by
 (partition-by #(first %) ["apple" "apricot" "banana" "blueberry" "cherry"])
 ;; (("apple" "apricot") ("banana" "blueberry") ("cherry"))
 ```
+
 
 
 
@@ -1409,6 +1478,7 @@ printlnとの違いは
 
 
 
+
 ## pst
 
 `(pst)`
@@ -1437,6 +1507,7 @@ https://clojuredocs.org/clojure.repl/pst
 ; 
 ;; 以下略
 ```
+
 
 
 ## rand
@@ -1472,6 +1543,7 @@ https://clojuredocs.org/clojure.core/rand
 
 
 
+
 ## rand-int
 
 `(rand-int n)`
@@ -1489,6 +1561,7 @@ https://clojuredocs.org/clojure.core/rand-int
 ;; 1以上、10未満
 (+ 1 (rand-int 10))
 ```
+
 
 
 ## range
@@ -1522,6 +1595,7 @@ https://clojuredocs.org/clojure.core/range
 
 
 
+
 ## re-find
 
 `(re-find m)`
@@ -1543,6 +1617,7 @@ https://clojuredocs.org/clojure.core/re-find
 (re-find #"(\d+)-(\d+)" "Phone Number: 123-456")
 ;; ["123-456" "123" "456"]
 ```
+
 
 
 
@@ -1589,6 +1664,7 @@ https://clojuredocs.org/clojure.core/recur
 
 
 
+
 ## reduce
 
 `(reduce f coll)`
@@ -1623,6 +1699,7 @@ https://clojuredocs.org/clojure.core/reduce
 
 
 
+
 ## repeat
 
 `(repeat x)`
@@ -1644,6 +1721,7 @@ https://clojuredocs.org/clojure.core/repeat
 (repeat 3 [1 2 3])
 ;; ([1 2 3] [1 2 3] [1 2 3])
 ```
+
 
 
 
@@ -1678,6 +1756,7 @@ https://clojuredocs.org/clojure.core/repeatedly
 (take 10 (repeatedly random-alphabet))
 ;; (\I \H \W \T \J \Z \U \K \T \O)
 ```
+
 
 
 
@@ -1745,6 +1824,7 @@ clojure.string
 
 
 
+
 ## rest
 
 `(rest coll)`
@@ -1795,6 +1875,7 @@ https://clojuredocs.org/clojure.core/rest
 
 
 
+
 ## slurp
 
 `(slurp f & opts)`
@@ -1815,6 +1896,7 @@ https://clojuredocs.org/clojure.core/slurp
 (with-open [rdr (java.io.InputStreamReader. (java.io.FileInputStream. "read-file.txt"))]
     (slurp rdr))
 ```
+
 
 
 
@@ -1847,6 +1929,7 @@ https://clojuredocs.org/clojure.core/some
 
 
 
+
 ## sort
 
 `(sort coll)`
@@ -1869,6 +1952,7 @@ https://clojuredocs.org/clojure.core/sort
 (sort #(> (count %1) (count %2)) ["apple" "orange" "banana" "grape"])
 ;; ("orange" "banana" "apple" "grape")
 ```
+
 
 
 
@@ -1902,6 +1986,7 @@ https://clojuredocs.org/clojure.core/sort-by
 
 
 
+
 ## source
 
 `(source n)`
@@ -1921,6 +2006,7 @@ https://clojuredocs.org/clojure.repl/source
 
 (source cons)
 ```
+
 
 
 
@@ -1951,6 +2037,7 @@ https://clojuredocs.org/clojure.core/spit
 
 
 
+
 ## split
 
 `(split s re)`
@@ -1975,6 +2062,7 @@ https://clojuredocs.org/clojure.string/split
 
 
 
+
 ## subs
 
 `(subs s start)`
@@ -1993,6 +2081,7 @@ https://clojuredocs.org/clojure.core/subs
 (subs "Clojure" 2 5)
 ;; "oju"
 ```
+
 
 
 
@@ -2026,6 +2115,7 @@ https://clojuredocs.org/clojure.core/take
 
 
 
+
 ## take-while
 
 `(take-while pred)`
@@ -2047,6 +2137,7 @@ https://clojuredocs.org/clojure.core/take-while
 (take-while #(< % 10) (iterate inc 1))
 ;; (1 2 3 4 5 6 7 8 9)
 ```
+
 
 
 
@@ -2085,6 +2176,7 @@ https://clojure.org/guides/threading_macros
 
 
 
+
 ## threading-macro
 
 `->`
@@ -2108,6 +2200,7 @@ https://clojure.org/guides/threading_macros
 (str (clojure.string/upper-case (clojure.string/trim text)) "!!!")
 ;; "HELLO WORLD!!!"
 ```
+
 
 
 
@@ -2151,6 +2244,7 @@ https://clojuredocs.org/clojure.core/type
 
 
 
+
 ## use-fixtures
 
 clojure.testが提供するマクロ。
@@ -2174,6 +2268,7 @@ https://clojuredocs.org/clojure.test/use-fixtures
       (finally
         (stop-server)))))
 ```
+
 
 
 
@@ -2208,8 +2303,6 @@ https://clojuredocs.org/clojure.core/when
 ```
 
 
-
-
 ## with-open
 
 `(with-open bindings & body)`
@@ -2233,6 +2326,7 @@ https://clojuredocs.org/clojure.core/with-open
 ```
 
 
+
 ## with-out-str
 
 `(with-out-str & body)`
@@ -2248,11 +2342,7 @@ https://clojuredocs.org/clojure.core/with-out-str
   (println "Hello, Clojure!")
   (println "This is test sentence."))
 ;; "Hello, Clojure!\nThis is test sentence.\n"
-
-;; テストケースの場合。
-
 ```
-
 
 
 
