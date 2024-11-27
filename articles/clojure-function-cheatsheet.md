@@ -2068,4 +2068,21 @@ https://clojuredocs.org/clojure.core/rand
 ;; 13.421563483733273 <= 一例
 ```
 
+## rand-int
+
+`(rand-int n)`
+
+指定した範囲内のランダムな整数を生成するための関数。
+0以上n未満の整数が返ってくる。
+
+https://clojuredocs.org/clojure.core/rand-int
+
+```clojure
+;; 0以上10未満
+(rand-int 10)
+
+;; 1以上なら調整がいる。
+;; 1以上、10未満
+(+ 1 (rand-int 10))
+```
 
