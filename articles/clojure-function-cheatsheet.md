@@ -2037,3 +2037,35 @@ https://clojuredocs.org/clojure.core/zero_q
 
 ```
 
+## rand
+
+`(rand)`
+`(rand n)`
+
+ランダムな少数を生成する関数。
+
+https://clojuredocs.org/clojure.core/rand
+
+```clojure
+;; 毎回違う結果の少数を生成
+;; 0.0 〜 1.0
+(rand)
+;; 0.27664731043774426 <= 一例
+
+;; nを指定できる
+;; 0.0 〜 n (例では10.0が最大)
+(rand 10)
+;; 2.7176732712185747 <= 一例
+
+;; 整数のランダム数が必要ならintを使う(もしくはrand-int）。
+(int (rand 10))
+;; 8 <= 一例
+
+;; a以上、b未満なら以下のようにする。
+(def a 10)
+(def b 20)
+(+ a (rand (- b a)))
+;; 13.421563483733273 <= 一例
+```
+
+
