@@ -11,6 +11,7 @@ Clojureで知った関数・マクロをまとめる。
 
 なお、記事の項目はアルファベット順になっている。
 
+
 ## abs
 
 `(abs a)`
@@ -388,6 +389,33 @@ https://clojuredocs.org/clojure.core/defrecord
 ;; 30
 ```
 
+## do
+
+複数の式を順番に評価し、最後の式の結果を返す。
+主に副作用主体のコードを書く場合に使う。
+
+https://clojuredocs.org/clojure.core/do
+
+```clojure
+(do
+  (println "first process")
+  (println "secod process")
+  42)
+; first expression
+; secod expression
+;; 42 <= 最後に評価された式
+
+;; if文などで複数の結果を処理したい場合などに使用する。
+(if true
+  (do
+    (println "条件が真の場合の処理1")
+    (println "条件が真の場合の処理2")
+    true)
+  false)
+; 条件が真の場合の処理1
+; 条件が真の場合の処理2
+;;true
+```
 ## doall
 
 `(doall coll)`
@@ -2098,30 +2126,3 @@ https://clojuredocs.org/clojure.core/zero_q
 
 ```
 
-## do
-
-複数の式を順番に評価し、最後の式の結果を返す。
-主に副作用主体のコードを書く場合に使う。
-
-https://clojuredocs.org/clojure.core/do
-
-```clojure
-(do
-  (println "first process")
-  (println "secod process")
-  42)
-; first expression
-; secod expression
-;; 42 <= 最後に評価された式
-
-;; if文などで複数の結果を処理したい場合などに使用する。
-(if true
-  (do
-    (println "条件が真の場合の処理1")
-    (println "条件が真の場合の処理2")
-    true)
-  false)
-; 条件が真の場合の処理1
-; 条件が真の場合の処理2
-;;true
-```
