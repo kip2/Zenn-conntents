@@ -770,6 +770,28 @@ https://clojuredocs.org/clojure.core/instance_q
 ;; true
 ```
 
+## interpose
+
+`(interpose sep)`
+`(interpose sep coll)`
+
+シーケンスの要素の間に指定した値を挿入する関数。
+なお、新しいシーケンスとして返す。
+
+https://clojuredocs.org/clojure.core/interpose
+
+```clojure
+(interpose 0 [1 2 3])
+;; (1 0 2 0 3)
+
+(interpose ", " ["a" "b" "c"])
+;; ("a" ", " "b" ", " "c")
+
+;; 文字列の結合などに利用する
+(apply str (interpose ", " ["a" "b" "c"]))
+;; "a, b, c"
+```
+
 ## into
 
 `(into)`
@@ -1080,6 +1102,39 @@ https://clojuredocs.org/clojure.core/map-indexed
 ;; (2 2 6 4 10)
 ```
 
+## mapcat
+
+`(mapcat f)`
+`(mapcat f & colls)`
+
+各要素に関数を適用して得られたシーケンスを結合する関数。
+`map`と`concat`の組み合わせと思えばいい。
+
+https://clojuredocs.org/clojure.core/mapcat
+
+```clojure
+(mapcat #(list % %) [1 2 3])
+;; (1 1 2 2 3 3)
+
+;; 以下のような形で動作している。
+;; 最初がmap、次ですべてをconcatしているような感じ
+;; 1 -> (1 1)
+;; 2 -> (2 2)
+;; 3 -> (3 3)
+;; (1 1) (2 2) (3 3) => (1 1 2 2 3 3 )
+
+(mapcat identity [[1 2] [3 4] [5 6]])
+;; (1 2 3 4 5 6)
+
+;; 実例としてCSVからのデータを整形する例
+(def rows [["name" "age"] ["Alice" "17"] ["Bob" "25"]])
+(mapcat #(concat % ["\n"]) rows)
+;; ("name" "age" "\n" "Alice" "17" "\n" "Bob" "25" "\n")
+
+;; (参考)mapの場合
+(map #(list % %) [1 2 3])
+;; ((1 1) (2 2) (3 3))
+```
 ## mapv
 
 `(map f)`
@@ -2126,58 +2181,3 @@ https://clojuredocs.org/clojure.core/zero_q
 
 ```
 
-## interpose
-
-`(interpose sep)`
-`(interpose sep coll)`
-
-シーケンスの要素の間に指定した値を挿入する関数。
-なお、新しいシーケンスとして返す。
-
-https://clojuredocs.org/clojure.core/interpose
-
-```clojure
-(interpose 0 [1 2 3])
-;; (1 0 2 0 3)
-
-(interpose ", " ["a" "b" "c"])
-;; ("a" ", " "b" ", " "c")
-
-;; 文字列の結合などに利用する
-(apply str (interpose ", " ["a" "b" "c"]))
-;; "a, b, c"
-```
-
-## mapcat
-
-`(mapcat f)`
-`(mapcat f & colls)`
-
-各要素に関数を適用して得られたシーケンスを結合する関数。
-`map`と`concat`の組み合わせと思えばいい。
-
-https://clojuredocs.org/clojure.core/mapcat
-
-```clojure
-(mapcat #(list % %) [1 2 3])
-;; (1 1 2 2 3 3)
-
-;; 以下のような形で動作している。
-;; 最初がmap、次ですべてをconcatしているような感じ
-;; 1 -> (1 1)
-;; 2 -> (2 2)
-;; 3 -> (3 3)
-;; (1 1) (2 2) (3 3) => (1 1 2 2 3 3 )
-
-(mapcat identity [[1 2] [3 4] [5 6]])
-;; (1 2 3 4 5 6)
-
-;; 実例としてCSVからのデータを整形する例
-(def rows [["name" "age"] ["Alice" "17"] ["Bob" "25"]])
-(mapcat #(concat % ["\n"]) rows)
-;; ("name" "age" "\n" "Alice" "17" "\n" "Bob" "25" "\n")
-
-;; (参考)mapの場合
-(map #(list % %) [1 2 3])
-;; ((1 1) (2 2) (3 3))
-```
