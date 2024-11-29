@@ -2126,3 +2126,28 @@ https://clojuredocs.org/clojure.core/zero_q
 
 ```
 
+## interpose
+
+`(interpose sep)`
+`(interpose sep coll)`
+
+シーケンスの要素の間に指定した値を挿入する関数。
+なお、新しいシーケンスとして返す。
+
+https://clojuredocs.org/clojure.core/interpose
+
+```clojure
+(interpose 0 [1 2 3])
+;; (1 0 2 0 3)
+
+(interpose ", " ["a" "b" "c"])
+;; ("a" ", " "b" ", " "c")
+
+;; 文字列の結合などに利用する
+(apply str (interpose ", " ["a" "b" "c"]))
+;; "a, b, c"
+```
+
+## mapcat
+
+
