@@ -29,7 +29,7 @@ published: true
                 [net.java.dev.jna/jna "5.10.0"]] ;; <= これを追加している
 ```
 
-もちろんこのあと`lein deps`で、コマンドラインから依存関係の解決を行う。
+もちろんこのあと`lein deps`でコマンドラインから依存関係の解決を行う。
 
 ```sh
 lein deps
