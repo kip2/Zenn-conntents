@@ -12,6 +12,7 @@ Clojureで知った関数・マクロをまとめる。
 なお、記事の項目はアルファベット順になっている。
 
 
+
 ## abs
 
 `(abs a)`
@@ -1349,6 +1350,30 @@ https://clojuredocs.org/clojure.core/partition-by
 ;; (("apple" "apricot") ("banana" "blueberry") ("cherry"))
 ```
 
+## pmap
+
+`(pmap f coll)`
+
+並列処理により、コレクションの各要素に関数を適用する。
+`map`の並列処理版と思ったら良い。
+データセットが大きい場合や、関数適用に時間がかかる場合に処理を高速化するのに役立つ。
+
+適用する関数は、副作用を持たない関数であること。
+
+https://clojuredocs.org/clojure.core/pmap
+
+```clojure
+(defn slow-square [x]
+  (Thread/sleep 1000)
+  (* x x))
+
+(time (doall (map slow-square [1 2 3 4])))
+; "Elapsed time: 4011.06025 msecs"
+;; (1 4 9 16)
+(time (doall (pmap slow-square [1 2 3 4])))
+; "Elapsed time: 1005.208625 msecs"
+;; (1 4 9 16)
+```
 ## prn
 
 `(prn & more)`
