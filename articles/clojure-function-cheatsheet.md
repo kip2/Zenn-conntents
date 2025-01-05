@@ -34,6 +34,42 @@ https://clojuredocs.org/clojure.core/abs
 ;; NullPointerException
 ```
 
+## alter
+
+`(alter ref fun & args)`
+
+`ref`で作成したSTMに指定された関数を適用し、値を更新する関数。
+`dosync`ブロック内で使う必要がある。
+
+https://clojuredocs.org/clojure.core/alter
+
+```clojure
+(def counter (ref 0))
+
+(println @counter)
+;; 0
+
+;; 更新
+(dosync
+ (alter counter + 1))
+
+(println @counter)
+;; 1
+
+(def account1 (ref 100))
+
+(def account2 (ref 300))
+
+(dosync
+ (alter account1 + 50)
+ (alter account2 - 50))
+
+(println @account1)
+;; 150
+(println @account2)
+;; 250
+```
+
 ## apropos
 
 `(apropos str-or-pattern)`
@@ -1615,11 +1651,11 @@ https://clojuredocs.org/clojure.core/reduce
 `(ref x)`
 `(ref x & options)`
 
-https://clojuredocs.org/clojure.core/ref
-
 複数のスレッド間でデータを可変状態で共有する。
 つまり、変更可能な参照を作成する。
 ソフトウェアトランザクショナルメモリに基づいて動作しているとのこと。
+
+https://clojuredocs.org/clojure.core/ref
 
 ```clojure
 
