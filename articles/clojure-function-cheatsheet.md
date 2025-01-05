@@ -1684,6 +1684,12 @@ https://clojuredocs.org/clojure.core/ref
 (println @account1)
 ;; 110
 
+(dosync
+ (ref-set current-track "Gymnopedie No.2"))
+
+(println @current-track)
+;; Gymnopedie No.2
+
 ;; 複数の値の操作においても、トランザクションで一貫性が保証されている。。
 (def account2 (ref 200))
 
@@ -1698,6 +1704,16 @@ https://clojuredocs.org/clojure.core/ref
 ;; 60
 (println @account2)
 ;; 250
+
+;; ref-setやalterなどの併用も可能
+(dosync
+ (ref-set current-track "Gymnopedie No.3")
+ (alter account1 + 100))
+
+(println @current-track)
+;; Gymnopedie No.3
+(println @account1)
+;; 160
 
 ```
 
