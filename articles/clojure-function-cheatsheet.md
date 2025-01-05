@@ -12,7 +12,6 @@ Clojureで知った関数・マクロをまとめる。
 なお、記事の項目はアルファベット順になっている。
 
 
-
 ## abs
 
 `(abs a)`
@@ -1611,6 +1610,60 @@ https://clojuredocs.org/clojure.core/reduce
 ;; 15
 ```
 
+## ref
+
+`(ref x)`
+`(ref x & options)`
+
+https://clojuredocs.org/clojure.core/ref
+
+複数のスレッド間でデータを可変状態で共有する。
+つまり、変更可能な参照を作成する。
+ソフトウェアトランザクショナルメモリに基づいて動作しているとのこと。
+
+```clojure
+
+(def account1 (ref 100))
+
+(def current-track (ref "Gymnopedie No.1"))
+
+(deref account1)
+;; 100
+
+(deref current-track)
+;; "Gymnopedie No.1"
+
+;; リーダーマクロが用意されているので、こちらでも参照可能。
+@account1
+;; 100
+
+@current-track
+;; "Gymnopedie No.1"
+
+;; 値の変更はdosync内で行う必要がある
+(dosync
+ (alter account1 + 10))
+
+(println @account1)
+;; 110
+
+;; 複数の値の操作においても、トランザクションで一貫性が保証されている。。
+(def account2 (ref 200))
+
+(defn transfer [from to amount]
+  (dosync
+   (alter from - amount)
+   (alter to + amount)))
+
+(transfer account1 account2 50)
+
+(println @account1)
+;; 60
+(println @account2)
+;; 250
+
+```
+
 ## repeat
 
 `(repeat x)`
@@ -2205,4 +2258,3 @@ https://clojuredocs.org/clojure.core/zero_q
 ;; true
 
 ```
-
