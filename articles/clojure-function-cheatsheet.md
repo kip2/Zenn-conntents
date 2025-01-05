@@ -12,6 +12,7 @@ Clojureで知った関数・マクロをまとめる。
 なお、記事の項目はアルファベット順になっている。
 
 
+
 ## abs
 
 `(abs a)`
@@ -2176,6 +2177,43 @@ https://clojuredocs.org/clojure.core/type
 
 (type john)
 ;; user.core.Person
+```
+
+## update
+
+`(update m k f)`
+`(update m k f x)`
+`(update m k f x y)`
+`(update m k f x y & more)`
+
+マップの特定のキーを更新するための関数。
+なお、更新後のマップは新しいマップであり、元のマップは変更されない。
+
+https://clojuredocs.org/clojure.core/update
+
+```clojure
+(def my-map {:a 1 :b 2 :c 3})
+
+(update my-map :a inc)
+;; {:a 2, :b 2, :c 3}
+
+;; 追加で引数を渡すと、適用先の関数に引数として渡される。
+(update my-map :a + 10)
+;; {:a 11, :b 2, :c 3}
+
+;; assocは置き換え
+(assoc my-map :a 10)
+;; {:a 10, :b 2, :c 3}
+
+;; updateは更新
+(update my-map :a + 20)
+;; {:a 21, :b 2, :c 3}
+
+;; ネストしたマップの更新の場合
+(def nested-map {:a {:b 1 :c 2}})
+
+(update nested-map :a update :b inc)
+
 ```
 
 ## use-fixtures
