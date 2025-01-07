@@ -12,7 +12,6 @@ Clojureで知った関数・マクロをまとめる。
 なお、記事の項目はアルファベット順になっている。
 
 
-
 ## abs
 
 `(abs a)`
@@ -1716,6 +1715,25 @@ https://clojuredocs.org/clojure.core/ref
 ;; 160
 
 ```
+
+## ref-set
+
+`(ref-set ref val)`
+
+`ref`でセットした値を直接更新する関数。
+ソフトウェアトランザクショナルメモリの仕組みを利用している。
+
+https://clojuredocs.org/clojure.core/ref-set
+
+```clojure
+(def a-ref (ref 0))
+
+(dosync
+ (ref-set a-ref 42))
+
+@a-ref
+```
+
 
 ## repeat
 
