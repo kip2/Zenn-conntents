@@ -12,6 +12,7 @@ Clojureで知った関数・マクロをまとめる。
 なお、記事の項目はアルファベット順になっている。
 
 
+
 ## abs
 
 `(abs a)`
@@ -423,6 +424,25 @@ https://clojuredocs.org/clojure.core/defrecord
 ;; John
 (:age john)
 ;; 30
+```
+
+## deref
+
+`(deref ref)`
+`(deref ref timeout-ms timeout-val)`
+
+`ref`で作成した参照型の値を取り出す関数。
+簡易的な記法として、`@`によるリーダーマクロもある。
+
+https://clojuredocs.org/clojure.core/deref
+
+```clojure
+(def a-ref (ref 0))
+
+(deref a-ref)
+;; 0
+@a-ref
+;; 0
 ```
 
 ## do
