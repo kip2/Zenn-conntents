@@ -30,7 +30,6 @@ https://techbookfest.org/product/5160915401965568?productVariantID=6598377057812
 - マップ
 - セット
 
-
 ## 各シーケンスを作成する関数
 
 各シーケンスを作成するには以下のような関数を使用して行う。
@@ -106,12 +105,129 @@ https://clojuredocs.org/clojure.core/sorted-set-by
 `(sorted-set-by comparator & keys)`
 
 ```clojure
+(sorted-set-by < 1 2 3 4)
+;; #{1 2 3 4}
 
+(sorted-set-by > 1 2 3 4)
+;; #{4 3 2 1}
 ```
 
----
----
----
+マップについては`<`や`>`をわたしてもソートできなかった。
+どうやら`compare`でやらないとだめらしい。
 
-- [ ] mapやsetにわたす際のわたし方には他にバリエーションはないのか？
-- [ ] 
+```clojure
+(sorted-map-by < :a 1 :b 2 :c 3)
+;; => Execution error (ClassCastException)
+
+;; compareなら比較が可能
+;; キーに対してソートする模様
+(sorted-map-by compare :a 7 :c 1 :b 3)
+;; {:a 7, :b 3, :c 1}
+```
+
+急にでてきた`compare`とはなんぞや？
+
+https://clojuredocs.org/clojure.core/compare
+
+```clojure
+(compare 1 2)
+;; -1
+(compare 2 2)
+;; 0
+(compare 3 2)
+;; 1
+
+(compare "a" "b")
+;; -1
+(compare "b" "b")
+;; 0
+(compare "c" "b")
+;; 1
+```
+
+どうやら、2つの引数を比較して、
+- 左の値が若ければ`-1`
+- 同じ値であれば`0`
+- 右の値が若ければ`1`
+といった判定を行っている模様。
+
+これを使い、その他のカスタム関数による比較を行うことができる。
+
+`sorted-set-by`の場合。
+```clojure
+;; > をわたした場合と同じ
+(sorted-set-by (fn [x y] (compare y x)) 3 1 2)
+
+;; 文字列の長さによってソートする
+(sorted-set-by (fn [x y] (compare (count x) (count y)))
+               "apple" "banana" "diamond" "kiwi")
+;; #{"kiwi" "apple" "banana" "diamond"}
+
+;; 絶対値の大きさによる比較
+(sorted-set-by (fn [x y] (compare (Math/abs x) (Math/abs y)))
+               -10 5 -3 2)
+;; #{2 -3 5 -10}
+
+;; setなので、compareの結果が0になる要素は重複として排除される
+(sorted-set-by (fn [x y] (compare (count x) (count y)))
+               "apple" "banana" "cherry" "kiwi")
+;; #{"kiwi" "apple" "banana"}
+
+(sorted-set-by (fn [x y] (compare (Math/abs x) (Math/abs y)))
+               -10 5 -5 10)
+;; #{5 -10}
+```
+
+`sorted-map-by`の場合。
+```clojure
+;; キーの文字列の長さによってソート
+(sorted-map-by (fn [k1 k2] (compare (count k1) (count k2)))
+               "apple" 1 "banana" 2 "kiwi" 3)
+;; {"kiwi" 3, "apple" 1, "banana" 2}
+
+;; setと同様の用な感じになるが、なぜかcherryの値がbananaに統合されている
+(sorted-map-by (fn [k1 k2] (compare (count k1) (count k2)))
+               "apple" 1 "banana" 2 "cherry" 3)
+;; {"apple" 1, "banana" 3}
+
+;; キーを数値にすれば、絶対値による比較などが可能
+(sorted-map-by (fn [k1 k2] (compare (Math/abs k1) (Math/abs k2)))
+               -10 "a" 5 "b" -3 "c")
+;; {-3 "c", 5 "b", -10 "a"}
+```
+
+## 各シーケンスの変換
+
+シーケンスを別のシーケンスに変換したいことがあるので、その場合の書き方について。
+
+`into`を使えば相互の変換が実現できる。
+
+https://clojuredocs.org/clojure.core/into
+
+```clojure
+;; list -> vector
+(into [] '(1 2 3))
+;; [1 2 3]
+
+;; vector -> list
+;; リストはポップした順番で追加していってるので、逆順になる
+(into '() [1 2 3])
+;; (3 2 1)
+
+;; list -> set
+;; setは順序が保証されない
+(into #{} '(1 2 3))
+;; #{1 3 2}
+
+;; vector -> set
+(into #{} [1 2 3])
+;; #{1 3 2}
+
+;; set -> list
+(into '() #{1 3 2})
+;; (2 3 1)
+
+;; set -> vector
+(into [] #{1 3 2})
+;; [1 3 2]
+```
