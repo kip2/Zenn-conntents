@@ -1,5 +1,5 @@
 ---
-title: "Clojureのシーケンスに関する簡単なまとめ"
+title: "シーケンス操作の簡単なまとめ"
 emoji: "🐈️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["clojure"]
