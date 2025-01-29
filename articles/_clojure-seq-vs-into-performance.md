@@ -75,13 +75,32 @@ https://clojuredocs.org/clojure.core/into
 
 (identical? (get a-vec 0) (first a-seq))
 ;; true
+
+(System/identityHashCode (get a-vec 0))
+;; 16113555
+
+(System/identityHashCode (first a-seq))
+;; 16113555
 ```
 
-:::message
-オブジェクトの相等を調べるのに`identical?`を使用した。
-:::
-
 https://clojuredocs.org/clojure.core/identical_q
+
+しかし、`into`についても同様に調べると、同じオブジェクトを刺さいているように思える。
+
+```clojure
+(def a-list '(1 2 3))
+
+(def a-vec2 (into [] a-list))
+
+(identical? (get a-vec2 0) (first a-list))
+;; true
+
+(System/identityHashCode (get a-vec2 0))
+;; 161113555
+
+(System/identityHashCode (first a-list))
+;; 161113555
+```
 
 # ここから蛇足
 
@@ -113,7 +132,33 @@ https://clojuredocs.org/clojure.core/identical_q
 ;; clojure.lang.PersistentArrayMap$Seq
 ```
 
+`into`での変換では以下のようになる。
 
+```clojure
+;; リスト
+(type '(1 2 3))
+;; clojure.lang.PersistentList
+(type (into '() [1 2 3]))
+;; clojure.lang.PersistentList
+
+;; ベクタ
+(type [1 2 3])
+;; clojure.lang.PersistentVector
+(type (into [] '(1 2 3)))
+;; clojure.lang.PersistentVector
+
+;; セット
+(type #{1 2 3})
+;; clojure.lang.PersistentHashSet
+(type (into #{} '(1 2 3)))
+;; clojure.lang.PersistentHashSet
+
+;; マップ
+(type {:a 1 :b 2})
+;; clojure.lang.PersistentArrayMap
+(type (into {} '([:a 1] [:b 2] [:c 3])))
+;; clojure.lang.PersistentArrayMap
+```
 
 - [ ] 型が違っていることで、何が違うのかを調査する
   - [ ] そもそもVectors$ChunkedSeqのダラーはなにか？
@@ -144,10 +189,6 @@ https://clojuredocs.org/clojure.core/identical_q
 
 
 
-- [ ] intoの事例
-- [ ] seqでやると早い
-  - [ ] timeによる比較を出す
-  - [ ] 各シーケンス事に違いをみる？
 - [ ] タイプは別であるということを示すこと
   - [ ] タイプが別であるなら、それはその型のシーケンスの動作ができるはずなので、それが可能かを確かめる
 
