@@ -12,12 +12,137 @@ Clojureでシーケンスの型変換を行うことがあるが、`into`を素�
 
 # intoによる型変換
 
+
 シーケンスの型変換を行う場合、`into`関数を以下のように使用する。
 
 ```clojure
+(into [] '(1 2 3))
+;; [1 2 3]
 
+(into '() [1 2 3])
+;; (3 2 1)
 
+(into #{} '(1 2 3))
+;; #{1 3 2}
+
+(into #{} [1 2 3])
+;; #{1 3 2}
+
+(into '() #{1 3 2})
+;; (2 3 1)
+
+(into [] #{1 3 2})
+;; [1 3 2]
 ```
+
+https://clojuredocs.org/clojure.core/into
+
+## intoによるパフォーマンスの問題
+
+しかし、`into`で大量のデータを扱う場合、パフォーマンスが問題となりうる。
+新しいデータを作成したうえで返却しているので、扱うデータの量が増えると、どうしても発生する問題だ。
+
+```clojure
+(time (into '() (range 100000)))
+;; intoの出力は省略
+; "Elapsed time: 9.009333 msecs"
+```
+
+## seqで変換すると早い
+
+この場合、`seq`を使うと素早く変換が可能。
+
+```clojure
+(time (seq (range 100000)))
+; "Elapsed time: 0.076542 msecs"
+
+(time (into '() (range 100000)))
+; "Elapsed time: 9.009333 msecs"
+```
+
+9倍くらい差がある。
+
+## なぜこんなに早いのか？
+
+しかし、なぜこんなに早いのだろうか？
+
+調査した感じ、どうやら元のシーケンスのオブジェクトをそのまま使っている感じだ。
+
+```clojure
+(def a-vec [1 2 3])
+
+(def a-seq (seq a-vec))
+
+(identical? (get a-vec 0) (first a-seq))
+;; true
+```
+
+:::message
+オブジェクトの相等を調べるのに`identical?`を使用した。
+:::
+
+https://clojuredocs.org/clojure.core/identical_q
+
+# ここから蛇足
+
+さて、このとき`seq`で変換している型はなんだろうか？
+
+```clojure
+;; リストはそのまま
+(type '(1 2 3))
+;; clojure.lang.PersistentList
+(type (seq '(1 2 3)))
+;; clojure.lang.PersistentList
+
+;; ベクタはちょっと違う
+(type [1 2 3])
+;; clojure.lang.PersistentVector
+(type (seq [1 2 3]))
+;; clojure.lang.PersistentVector$ChunkedSeq
+
+;; setは型からしてかなり違っている。
+(type #{1 2 3})
+;; clojure.lang.PersistentHashSet
+(type (seq #{1 2 3}))
+;; clojure.lang.APersistentMap$KeySeq
+
+;; マップはちょっと違う
+(type {:a 1 :b 2})
+;; clojure.lang.PersistentArrayMap
+(type (seq {:a 1 :b 2}))
+;; clojure.lang.PersistentArrayMap$Seq
+```
+
+
+
+- [ ] 型が違っていることで、何が違うのかを調査する
+  - [ ] そもそもVectors$ChunkedSeqのダラーはなにか？
+- [ ] setに対してはソートなどが使えるので有利？
+
+## 遅延シーケンス
+
+遅延シーケンスというわけではなさそう。
+
+```clojure
+(instance? clojure.lang.LazySeq (seq (range 100000)))
+;; false
+
+(instance? clojure.lang.LazySeq (into '() (range 100000)))
+;; false
+```
+
+どうやら同じオブジェクトを参照しているらしい。
+
+```clojure
+(def vec1 [1 2 3])
+
+(def seq1 (seq vec1))
+
+(identical? (get vec1 0) (first seq1))
+;; true
+```
+
+
 
 - [ ] intoの事例
 - [ ] seqでやると早い
